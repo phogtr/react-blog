@@ -1,10 +1,11 @@
 import { Request, Response } from "express";
-import Post from "../model/post.model";
+import { DocumentDefinition } from "mongoose";
+import Post, { PostDocument } from "../model/post.model";
 
 export async function createPostHandler(req: Request, res: Response) {
   let { title, content } = req.body;
 
-  const postObj = new Post({
+  const postObj: DocumentDefinition<PostDocument> = new Post({
     title,
     content,
   });
