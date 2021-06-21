@@ -1,7 +1,7 @@
 import express from "express";
 import log from "./logger";
 import connect from "./db/connect";
-import { postRoutes } from "./routes/posts.route";
+import postRoutes from "./routes/posts.route";
 
 const app = express();
 
