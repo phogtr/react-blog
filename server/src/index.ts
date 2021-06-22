@@ -2,8 +2,11 @@ import express from "express";
 import log from "./logger";
 import connect from "./db/connect";
 import postRoutes from "./routes/posts.route";
+import cors from "cors";
 
 const app = express();
+
+app.use(cors());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

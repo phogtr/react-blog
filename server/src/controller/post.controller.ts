@@ -16,7 +16,7 @@ export async function createPostHandler(req: Request, res: Response) {
   return res.send(post);
 }
 
-export async function getAllPostsHandler(res: Response) {
+export async function getAllPostsHandler(req: Request, res: Response) {
   const query: FilterQuery<PostDocument> = {};
   const findOptions: QueryOptions = { lean: true };
 
