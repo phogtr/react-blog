@@ -7,9 +7,8 @@ export async function createUserHandler(req: Request, res: Response) {
   try {
     let userObj: DocumentDefinition<UserDocument> = req.body;
     const user = await User.create(userObj);
-
     return res.send(omit(user.toJSON(), "password")); // don't send password field
   } catch (error) {
-    return res.send(400).send(error.message);
+    return res.status(400).send("Email has already been used. Please enter a different one");
   }
 }
