@@ -1,7 +1,7 @@
 import express from "express";
 import log from "./logger";
 import connect from "./db/connect";
-import postRoutes from "./routes/posts.route";
+import { postRoute, userRoute } from "./routes/";
 import cors from "cors";
 
 const app = express();
@@ -16,5 +16,6 @@ app.listen(PORT, () => {
   log.info(`Server started on ${PORT}`); //  console.log is blocking IO, log from pino is not
 
   connect();
-  postRoutes(app);
+  postRoute(app);
+  userRoute(app);
 });
