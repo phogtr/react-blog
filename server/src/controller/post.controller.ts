@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import { get } from "lodash";
 import { DocumentDefinition, FilterQuery, QueryOptions, UpdateQuery } from "mongoose";
 import Post, { PostDocument } from "../model/post.model";
 
@@ -29,7 +28,7 @@ export async function getAllPostsHandler(_req: Request, res: Response) {
 }
 
 export async function updatePostHandler(req: Request, res: Response) {
-  const postId = get(req, "params.postId");
+  const postId = req.params.postId;
   const query: FilterQuery<PostDocument> = { postId };
   const findOptions: QueryOptions = { lean: true };
 
@@ -48,7 +47,7 @@ export async function updatePostHandler(req: Request, res: Response) {
 }
 
 export async function deletePostHandler(req: Request, res: Response) {
-  const postId = get(req, "params.postId");
+  const postId = req.params.postId;
   const query: FilterQuery<PostDocument> = { postId };
   const findOptions: QueryOptions = { lean: true };
 

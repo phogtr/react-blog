@@ -16,8 +16,8 @@ const PostSchema = new mongoose.Schema(
       unique: true,
       default: () => nanoid(10),
     },
-    title: { type: String, default: true },
-    content: { type: String, default: true },
+    title: { type: String, default: "" },
+    content: { type: String, default: "" },
   },
   { timestamps: true }
 );
