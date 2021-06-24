@@ -2,7 +2,7 @@ import { AnySchema } from "yup";
 import { Request, Response, NextFunction } from "express";
 
 // currying
-const validateRegister =
+const validateRequest =
   (schema: AnySchema) => async (req: Request, res: Response, next: NextFunction) => {
     try {
       await schema.validate({
@@ -16,4 +16,4 @@ const validateRegister =
     }
   };
 
-export default validateRegister;
+export default validateRequest;
