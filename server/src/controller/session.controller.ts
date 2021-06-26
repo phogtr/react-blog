@@ -1,7 +1,9 @@
+import { get } from "lodash";
 import { Request, Response } from "express";
-import { jwtSign } from "../utils/jwt.utils";
+import { jwtSign, jwtDecode } from "../utils/jwt.utils";
 import config from "../config/key";
 import User, { UserDocument } from "../model/user.model";
+import { findUser } from "./user.controller";
 import Session from "../model/session.model";
 
 export async function createSessionHandler(req: Request, res: Response) {
@@ -36,4 +38,23 @@ export async function createSessionHandler(req: Request, res: Response) {
 
   //send refresh & access token back
   return res.send({ accessToken, refreshToken });
+}
+
+export async function renewAccessToken({ refreshToken }: { refreshToken: string }) {
+  const { decoded } = jwtDecode(refreshToken);
+  console.log(decoded);
+
+  if (!decoded) return false;
+
+  const session = await Session.findById(get(decoded, "_id"));
+
+  if (!session || !session?.valid) return false;
+
+  const user = await findUser({ _id: session.user });
+
+  if (!user) return false;
+
+  const accessToken = jwtSign({ user, session }, { expiresIn: config.accessTokenTime });
+
+  return accessToken;
 }

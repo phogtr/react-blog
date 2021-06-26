@@ -1,4 +1,4 @@
-import { DocumentDefinition } from "mongoose";
+import { DocumentDefinition, FilterQuery } from "mongoose";
 import { Request, Response } from "express";
 import { omit } from "lodash";
 import User, { UserDocument } from "../model/user.model";
@@ -11,4 +11,8 @@ export async function createUserHandler(req: Request, res: Response) {
   } catch (error) {
     return res.status(400).send("Email has already been used. Please enter a different one");
   }
+}
+
+export async function findUser(query: FilterQuery<UserDocument>) {
+  return User.findOne(query).lean();
 }
