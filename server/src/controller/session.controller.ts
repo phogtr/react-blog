@@ -29,7 +29,7 @@ export async function createSessionHandler(req: Request, res: Response) {
 
   // create access token
   const accessToken = jwtSign(
-    { userJson, session: sessionJson._id },
+    { ...userJson, session: sessionJson._id },
     { expiresIn: config.accessTokenTime }
   );
 
@@ -40,7 +40,7 @@ export async function createSessionHandler(req: Request, res: Response) {
   return res.send({ accessToken, refreshToken });
 }
 
-export async function renewAccessToken({ refreshToken }: { refreshToken: string }) {
+export async function renewAccessToken(refreshToken: string) {
   const { decoded } = jwtDecode(refreshToken);
   console.log(decoded);
 
@@ -49,12 +49,16 @@ export async function renewAccessToken({ refreshToken }: { refreshToken: string 
   const session = await Session.findById(get(decoded, "_id"));
 
   if (!session || !session?.valid) return false;
+  const sessionJson = await session.toJSON();
 
-  const user = await findUser({ _id: session.user });
+  const user = await findUser({ _id: sessionJson.user });
 
   if (!user) return false;
 
-  const accessToken = jwtSign({ user, session }, { expiresIn: config.accessTokenTime });
+  const accessToken = jwtSign(
+    { ...user, session: sessionJson._id },
+    { expiresIn: config.accessTokenTime }
+  );
 
   return accessToken;
 }
