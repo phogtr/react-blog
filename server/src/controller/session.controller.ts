@@ -40,15 +40,17 @@ export async function createSessionHandler(req: Request, res: Response) {
   return res.send({ accessToken, refreshToken });
 }
 
+// renew access token
 export async function renewAccessToken(refreshToken: string) {
   const { decoded } = jwtDecode(refreshToken);
   console.log(decoded);
 
   if (!decoded) return false;
 
+  // find session from the refresh token - line 37 above
   const session = await Session.findById(get(decoded, "_id"));
 
-  if (!session || !session?.valid) return false;
+  if (!session || !session?.valid) return false; // valid true mean still login, false => logout
   const sessionJson = await session.toJSON();
 
   const user = await findUser({ _id: sessionJson.user });
@@ -61,4 +63,12 @@ export async function renewAccessToken(refreshToken: string) {
   );
 
   return accessToken;
+}
+
+export async function invalidateSessionHandler(req: Request, res: Response) {
+  const sessionId = get(req, "user.session"); // from deserializedUser => req.user = decoded
+
+  await Session.updateOne({ _id: sessionId }, { valid: false });
+
+  return res.sendStatus(200);
 }

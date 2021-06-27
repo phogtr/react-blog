@@ -2,11 +2,14 @@ import express from "express";
 import log from "./logger";
 import connect from "./db/connect";
 import { postRoute, userRoute } from "./routes/";
+import deserializeUser from "./middleware/deserializeUser";
 import cors from "cors";
 
 const app = express();
 
 app.use(cors());
+
+app.use(deserializeUser);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
