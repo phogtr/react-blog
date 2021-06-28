@@ -9,7 +9,7 @@ export const Posts: React.FC<PostsProps> = () => {
     const url = "http://localhost:5000/api/getPosts";
     const res = await fetch(url);
     const data = await res.json();
-    console.log(data);
+    // console.log(data);
     setArr(data);
   };
 

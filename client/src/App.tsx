@@ -1,13 +1,25 @@
-import { NavBar } from "./components/NavBar";
-import { Posts } from "./components/Posts";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { NavBar, Posts, Login, Register } from "./components";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   return (
     <>
-      <NavBar />
-      <h1>Hello World</h1>
-      <Posts />
+      <Router>
+        <NavBar />
+        <h1>Hello World</h1>
+        <Switch>
+          <Route exact path="/">
+            <Posts />
+          </Route>
+          <Route path="/register">
+            <Register />
+          </Route>
+          <Route path="/login">
+            <Login />
+          </Route>
+        </Switch>
+      </Router>
     </>
   );
 }
