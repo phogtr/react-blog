@@ -12,7 +12,10 @@ const validateRequest =
       });
       return next();
     } catch (e) {
-      return res.status(400).send(e.errors);
+      return res.status(400).send({
+        errorMessage: e.errors,
+        path: e.path,
+      });
     }
   };
 
