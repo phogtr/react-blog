@@ -28,6 +28,7 @@ export async function createSessionHandler(req: Request, res: Response) {
   }
 
   const userJson = await user.toJSON();
+  const userName = userJson.name;
 
   // create a session
   const session = await Session.create({ user: userJson._id, userAgent: req.get("user-agent") });
@@ -43,7 +44,7 @@ export async function createSessionHandler(req: Request, res: Response) {
   const refreshToken = jwtSign(sessionJson, { expiresIn: config.refreshTokenTime });
 
   //send refresh & access token back
-  return res.send({ accessToken, refreshToken });
+  return res.send({ accessToken, refreshToken, userName });
 }
 
 // renew access token

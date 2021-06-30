@@ -1,8 +1,9 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import { Form, Formik } from "formik";
-import axios from "axios";
 import { InputField } from "..";
 import { toErrorMap } from "../../utils/toErrorMap";
+import axios from "axios";
 
 interface RegisterProps {}
 
@@ -11,6 +12,8 @@ const reqisterRequest = async (data: object) => {
 };
 
 export const Register: React.FC<RegisterProps> = () => {
+  let history = useHistory();
+
   return (
     <Formik
       initialValues={{ name: "", email: "", password: "" }}
@@ -18,6 +21,7 @@ export const Register: React.FC<RegisterProps> = () => {
         console.log(values);
         try {
           await reqisterRequest(values);
+          history.push("/login");
         } catch (error) {
           // console.log(error.response.data);
           setErrors(toErrorMap(error.response.data));
@@ -28,7 +32,7 @@ export const Register: React.FC<RegisterProps> = () => {
         <Form>
           <InputField name="name" placeholder="Display Name" />
           <InputField name="email" placeholder="Email" />
-          <InputField name="password" placeholder="Password" type="password" />
+          <InputField name="password" placeholder="Password" type="password" autoComplete="off" />
           <button type="submit">Register</button>
         </Form>
       )}
