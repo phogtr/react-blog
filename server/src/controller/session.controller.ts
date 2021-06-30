@@ -12,13 +12,19 @@ export async function createSessionHandler(req: Request, res: Response) {
   const user = await User.findOne({ email });
 
   if (!user) {
-    return res.status(401).send("Invalid email");
+    return res.status(401).send({
+      errorMessage: ["Email is invalid"],
+      path: "body.email",
+    });
   }
 
   const checkPassword = await user.comparePassword(password);
 
   if (!checkPassword) {
-    return res.status(401).send("Invalid Password");
+    return res.status(401).send({
+      errorMessage: ["Password is invalid"],
+      path: "body.password",
+    });
   }
 
   const userJson = await user.toJSON();
