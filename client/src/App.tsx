@@ -1,12 +1,15 @@
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { NavBar, Posts, Login, Register } from "./components";
+import { useSession } from "./utils/useSession";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
+  const { userData, setUser } = useSession();
+
   return (
     <>
       <Router>
-        <NavBar />
+        <NavBar userData={userData} />
         <h1>Hello World</h1>
         <Switch>
           <Route exact path="/">
@@ -16,7 +19,7 @@ function App() {
             <Register />
           </Route>
           <Route path="/login">
-            <Login />
+            <Login setUser={setUser} />
           </Route>
         </Switch>
       </Router>
