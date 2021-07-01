@@ -76,6 +76,7 @@ export async function invalidateSessionHandler(req: Request, res: Response) {
   const sessionId = get(req, "user.session"); // from deserializedUser => req.user = decoded
 
   await Session.updateOne({ _id: sessionId }, { valid: false });
+  // await Session.deleteOne({ _id: sessionId });
 
   return res.sendStatus(200);
 }

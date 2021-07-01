@@ -1,19 +1,26 @@
 import React from "react";
-
 import { Link } from "react-router-dom";
 import { Nav, Navbar, Container } from "react-bootstrap";
+import axios from "axios";
 
 interface NavBarProps {
   userData: any;
+  setUser: (_: any) => void;
 }
 
-export const NavBar: React.FC<NavBarProps> = ({ userData }) => {
+export const NavBar: React.FC<NavBarProps> = ({ userData, setUser }) => {
+  const logoutRequest = async () => {
+    await axios.delete("http://localhost:5000/api/logout");
+    setUser({});
+    localStorage.clear();
+  };
+
   let body = userData?.userName ? (
     <Nav>
       <Nav.Link as={Link} to="/">
         {userData.userName}
       </Nav.Link>
-      <Nav.Link as={Link} to="/">
+      <Nav.Link as={Link} to="/" onClick={logoutRequest}>
         Logout
       </Nav.Link>
     </Nav>
