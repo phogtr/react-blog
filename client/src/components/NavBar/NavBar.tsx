@@ -17,6 +17,9 @@ export const NavBar: React.FC<NavBarProps> = ({ userData, setUser }) => {
 
   let body = userData?.userName ? (
     <Nav>
+      <Nav.Link as={Link} to="/create-post">
+        Create Post
+      </Nav.Link>
       <Nav.Link as={Link} to="/">
         {userData.userName}
       </Nav.Link>
