@@ -4,9 +4,9 @@ import { DocumentDefinition, FilterQuery, QueryOptions, UpdateQuery } from "mong
 import Post, { PostDocument } from "../model/post.model";
 
 export async function createPostHandler(req: Request, res: Response) {
-  const reqUserId = get(req, "user._id"); // deserializeUser set this
+  const reqUsername = get(req, "user.name"); // deserializeUser set this
   const postObj: DocumentDefinition<PostDocument> = req.body;
-  const post = await Post.create({ ...postObj, authorId: reqUserId });
+  const post = await Post.create({ ...postObj, author: reqUsername });
 
   return res.send(post);
 }

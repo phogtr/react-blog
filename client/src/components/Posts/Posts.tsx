@@ -26,7 +26,10 @@ export const Posts: React.FC<PostsProps> = () => {
           idx: any // todo: handle types
         ) => (
           <div key={idx}>
-            <div>{post.title}</div>
+            <div>title: {post.title}</div>
+            <div>content: {post.content}</div>
+            <div>by: {post.author}</div>
+            <br />
           </div>
         )
       )}
