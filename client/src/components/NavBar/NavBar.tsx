@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Nav, Navbar, Container } from "react-bootstrap";
 import { UserContext } from "../../utils/UserContext";
-import axios from "axios";
+import axios from "../../config/axios";
 
 interface NavBarProps {}
 

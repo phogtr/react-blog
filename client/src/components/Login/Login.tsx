@@ -4,7 +4,7 @@ import { Form, Formik } from "formik";
 import { InputField } from "..";
 import { toErrorMap } from "../../utils/toErrorMap";
 import { UserContext } from "../../utils/UserContext";
-import axios from "axios";
+import axios from "../../config/axios";
 
 interface LoginProps {}
 

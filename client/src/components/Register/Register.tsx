@@ -3,11 +3,17 @@ import { useHistory } from "react-router-dom";
 import { Form, Formik } from "formik";
 import { InputField } from "..";
 import { toErrorMap } from "../../utils/toErrorMap";
-import axios from "axios";
+import axios from "../../config/axios";
 
 interface RegisterProps {}
 
-const reqisterRequest = async (data: object) => {
+interface RegisterData {
+  name: string;
+  email: string;
+  password: string;
+}
+
+const reqisterRequest = async (data: RegisterData) => {
   return await axios.post("http://localhost:5000/api/createUser", data);
 };
 
@@ -18,7 +24,7 @@ export const Register: React.FC<RegisterProps> = () => {
     <Formik
       initialValues={{ name: "", email: "", password: "" }}
       onSubmit={async (values, { setErrors }) => {
-        console.log(values);
+        // console.log(values);
         try {
           await reqisterRequest(values);
           history.push("/login");
