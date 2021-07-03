@@ -1,7 +1,9 @@
 import mongoose from "mongoose";
 import { nanoid } from "nanoid";
+import { UserDocument } from "./user.model";
 
 export interface PostDocument extends mongoose.Document {
+  authorId: UserDocument["_id"];
   title: string;
   content: string;
   createdAt: Date;
@@ -16,6 +18,7 @@ const PostSchema = new mongoose.Schema(
       unique: true,
       default: () => nanoid(10),
     },
+    authorId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
     title: { type: String, default: "" },
     content: { type: String, default: "" },
   },
