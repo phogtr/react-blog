@@ -1,13 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { Form, Formik } from "formik";
 import { InputField } from "..";
 import { toErrorMap } from "../../utils/toErrorMap";
+import { UserContext } from "../../utils/UserContext";
 import axios from "axios";
 
-interface LoginProps {
-  setUser: (_: any) => void;
-}
+interface LoginProps {}
 
 interface LoginData {
   email: string;
@@ -19,7 +18,8 @@ const loginRequest = async (data: LoginData) => {
   return await res.data;
 };
 
-export const Login: React.FC<LoginProps> = ({ setUser }) => {
+export const Login: React.FC<LoginProps> = () => {
+  const { setUser } = useContext(UserContext);
   let history = useHistory();
   return (
     <Formik

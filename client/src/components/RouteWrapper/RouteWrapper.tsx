@@ -2,11 +2,9 @@ import React from "react";
 import { Route, Switch } from "react-router-dom";
 import { Posts, Login, Register, CreatePost } from "../index";
 
-interface RouteWrapperProps {
-  setUser: (_: any) => void;
-}
+interface RouteWrapperProps {}
 
-export const RouteWrapper: React.FC<RouteWrapperProps> = ({ setUser }) => {
+export const RouteWrapper: React.FC<RouteWrapperProps> = () => {
   return (
     <Switch>
       <Route exact path="/">
@@ -16,7 +14,7 @@ export const RouteWrapper: React.FC<RouteWrapperProps> = ({ setUser }) => {
         <Register />
       </Route>
       <Route path="/login">
-        <Login setUser={setUser} />
+        <Login />
       </Route>
       <Route path="/create-post">
         <CreatePost />

@@ -1,14 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Nav, Navbar, Container } from "react-bootstrap";
+import { UserContext } from "../../utils/UserContext";
 import axios from "axios";
 
-interface NavBarProps {
-  userData: any;
-  setUser: (_: any) => void;
-}
+interface NavBarProps {}
 
-export const NavBar: React.FC<NavBarProps> = ({ userData, setUser }) => {
+export const NavBar: React.FC<NavBarProps> = () => {
+  const { userData, setUser } = useContext(UserContext);
+
   const logoutRequest = async () => {
     await axios.delete("http://localhost:5000/api/logout");
     setUser({});
