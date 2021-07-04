@@ -23,6 +23,19 @@ export async function getAllPostsHandler(_req: Request, res: Response) {
   return res.send(posts);
 }
 
+export async function getSinglePostHandler(req: Request, res: Response) {
+  const postId = req.params.postId;
+  const query: FilterQuery<PostDocument> = { postId };
+  const findOptions: QueryOptions = { lean: true };
+
+  const post = await Post.find(query, {}, findOptions);
+
+  if (!post) {
+    return res.sendStatus(404);
+  }
+  return res.send(post);
+}
+
 export async function updatePostHandler(req: Request, res: Response) {
   const postId = req.params.postId;
   const query: FilterQuery<PostDocument> = { postId };

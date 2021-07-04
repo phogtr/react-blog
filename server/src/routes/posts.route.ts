@@ -3,6 +3,7 @@ import {
   createPostHandler,
   deletePostHandler,
   getAllPostsHandler,
+  getSinglePostHandler,
   updatePostHandler,
 } from "../controller/post.controller";
 
@@ -12,6 +13,9 @@ export default function (app: Express) {
 
   // get all posts
   app.get("/api/getPosts", getAllPostsHandler);
+
+  // get single post
+  app.get("/api/post/:postId", getSinglePostHandler);
 
   // update a post
   app.put("/api/post/:postId", updatePostHandler);
