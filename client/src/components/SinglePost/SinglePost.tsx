@@ -21,9 +21,17 @@ export const SinglePost: React.FC<SinglePostProps> = () => {
     getPost();
   }, []);
 
+  if (!post) {
+    return (
+      <div>
+        <h1>Could not find this post</h1>
+      </div>
+    );
+  }
+
   return (
     <div>
-      <h3>SinglePost</h3>
+      <h1>{post.title}</h1>
       <div>{post.content}</div>
     </div>
   );
