@@ -10,7 +10,6 @@ export const Posts: React.FC<PostsProps> = () => {
   const getData = async () => {
     const url = "http://localhost:5000/api/getPosts";
     const res = await axios.get(url);
-    // console.log(data);
     setArr(res.data);
   };
 
@@ -18,18 +17,17 @@ export const Posts: React.FC<PostsProps> = () => {
     getData();
   }, []);
 
+  const deletePost = async (id: string) => {
+    axios.delete(`http://localhost:5000/api/post/${id}`);
+    setArr(arr.filter((p: any) => p.postId !== id));
+  };
+
   // todo: handle post (any) types
   return (
     <>
       <h1>Posts</h1>
       {arr.map((post: any) => (
-        <EachPost
-          key={post.postId}
-          id={post.postId}
-          title={post.title}
-          content={post.content}
-          author={post.author}
-        />
+        <EachPost key={post.postId} post={post} deletePost={deletePost} />
       ))}
     </>
   );

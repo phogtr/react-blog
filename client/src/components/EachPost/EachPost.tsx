@@ -2,18 +2,18 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 interface EachPostProps {
-  id: string;
-  title: string;
-  content: string;
-  author: string;
+  post: any; // todo: handle (any) type
+  deletePost: (id: string) => void;
 }
 
-export const EachPost: React.FC<EachPostProps> = ({ id, title, content, author }) => {
+export const EachPost: React.FC<EachPostProps> = ({ post, deletePost }) => {
   return (
     <div>
-      <Link to={`/post/${id}`}>title: {title}</Link>
-      <div>content: {content}</div>
-      <div>by: {author}</div>
+      <Link to={`/post/${post.postId}`}>title: {post.title}</Link>
+      <div>content: {post.content}</div>
+      <div>by: {post.author}</div>
+      <button onClick={() => deletePost(post.postId)}>Delete</button>
+      <br />
       <br />
     </div>
   );
