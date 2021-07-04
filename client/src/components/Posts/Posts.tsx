@@ -1,4 +1,6 @@
+import axios from "../../config/axios";
 import React, { useEffect, useState } from "react";
+import { EachPost } from "../index";
 
 interface PostsProps {}
 
@@ -7,32 +9,28 @@ export const Posts: React.FC<PostsProps> = () => {
 
   const getData = async () => {
     const url = "http://localhost:5000/api/getPosts";
-    const res = await fetch(url);
-    const data = await res.json();
+    const res = await axios.get(url);
     // console.log(data);
-    setArr(data);
+    setArr(res.data);
   };
 
   useEffect(() => {
     getData();
   }, []);
 
+  // todo: handle post (any) types
   return (
     <>
       <h1>Posts</h1>
-      {arr.map(
-        (
-          post: any, // todo: handle types
-          idx: any // todo: handle types
-        ) => (
-          <div key={idx}>
-            <div>title: {post.title}</div>
-            <div>content: {post.content}</div>
-            <div>by: {post.author}</div>
-            <br />
-          </div>
-        )
-      )}
+      {arr.map((post: any) => (
+        <EachPost
+          key={post.postId}
+          id={post.postId}
+          title={post.title}
+          content={post.content}
+          author={post.author}
+        />
+      ))}
     </>
   );
 };

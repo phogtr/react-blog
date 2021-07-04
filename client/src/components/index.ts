@@ -1,7 +1,9 @@
-export { NavBar } from "./NavBar/NavBar";
-export { Posts } from "./Posts/Posts";
-export { Login } from "./Login/Login";
-export { Register } from "./Register/Register";
 export { InputField } from "./InputField/InputField";
 export { RouteWrapper } from "./RouteWrapper/RouteWrapper";
+export { NavBar } from "./NavBar/NavBar";
+export { Login } from "./Login/Login";
+export { Register } from "./Register/Register";
+export { Posts } from "./Posts/Posts";
+export { EachPost } from "./EachPost/EachPost";
 export { CreatePost } from "./CreatePost/CreatePost";
+export { SinglePost } from "./SinglePost/SinglePost";
