@@ -13,6 +13,9 @@ export const EachPost: React.FC<EachPostProps> = ({ post, deletePost }) => {
       <div>content: {post.content}</div>
       <div>by: {post.author}</div>
       <button onClick={() => deletePost(post.postId)}>Delete</button>
+      <Link to={`/edit/${post.postId}`}>
+        <button>Edit</button>
+      </Link>
       <br />
       <br />
     </div>

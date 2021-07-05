@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
-import { Posts, Login, Register, CreatePost, SinglePost } from "../index";
+import { Posts, Login, Register, CreatePost, SinglePost, EditPost } from "../index";
 
 interface RouteWrapperProps {}
 
@@ -21,6 +21,9 @@ export const RouteWrapper: React.FC<RouteWrapperProps> = () => {
       </Route>
       <Route path="/post/:id">
         <SinglePost />
+      </Route>
+      <Route path="/edit/:id">
+        <EditPost />
       </Route>
     </Switch>
   );

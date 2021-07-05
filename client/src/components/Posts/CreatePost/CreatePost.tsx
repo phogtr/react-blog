@@ -1,9 +1,9 @@
 import React from "react";
 import { Form, Formik } from "formik";
 import { useHistory } from "react-router-dom";
-import { InputField } from "../index";
-import { toErrorMap } from "../../utils/toErrorMap";
-import axios from "../../config/axios";
+import { InputField } from "../../index";
+import { toErrorMap } from "../../../utils/toErrorMap";
+import axios from "../../../config/axios";
 
 interface CreatePostProps {}
 
