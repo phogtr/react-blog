@@ -1,16 +1,12 @@
-import React from "react";
 import { Form, Formik } from "formik";
+import React from "react";
 import { useHistory } from "react-router-dom";
-import { InputField } from "../../index";
-import { toErrorMap } from "../../../utils/toErrorMap";
 import axios from "../../../config/axios";
+import { toErrorMap } from "../../../utils/toErrorMap";
+import { InputField } from "../../index";
+import { PostData } from "../Posts";
 
 interface CreatePostProps {}
-
-interface PostData {
-  title: string;
-  content: string;
-}
 
 const createPostHandler = async (data: PostData) => {
   return await axios.post("http://localhost:5000/api/createPost", data);

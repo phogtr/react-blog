@@ -1,6 +1,7 @@
-import axios from "../../../config/axios";
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import axios from "../../../config/axios";
+import { PostData } from "../Posts";
 
 interface SinglePostProps {}
 
@@ -9,7 +10,7 @@ interface RouteParams {
 }
 
 export const SinglePost: React.FC<SinglePostProps> = () => {
-  const [post, setPost] = useState<any>([]); // todo: handle generics type => provide interface for whatever the api gives
+  const [post, setPost] = useState<PostData>({ title: "", content: "" });
   const params = useParams<RouteParams>();
 
   const getPost = async () => {

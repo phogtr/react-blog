@@ -1,16 +1,12 @@
 import { Form, Formik } from "formik";
-import { InputField } from "../../index";
-import { toErrorMap } from "../../../utils/toErrorMap";
-import { useHistory, useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
+import { useHistory, useParams } from "react-router-dom";
 import axios from "../../../config/axios";
+import { toErrorMap } from "../../../utils/toErrorMap";
+import { InputField } from "../../index";
+import { PostData } from "../Posts";
 
 interface EditPostProps {}
-
-interface PostData {
-  title: string;
-  content: string;
-}
 
 interface RouteParams {
   id: string;
@@ -20,7 +16,7 @@ const editPostHandler = async (id: string, data: PostData) => {
   return await axios.put(`http://localhost:5000/api/post/${id}`, data);
 };
 
-export const EditPost: React.FC<EditPostProps> = ({}) => {
+export const EditPost: React.FC<EditPostProps> = () => {
   const [postLoaded, setPostLoaded] = useState(Boolean); // Conditional rendering
   const [post, setPost] = useState<PostData>({ title: "", content: "" });
   const params = useParams<RouteParams>();
