@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { PostData } from "../Posts";
+import { PostData } from "src/redux/ducks/posts";
 
 interface EachPostProps {
   post: PostData;

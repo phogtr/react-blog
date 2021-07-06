@@ -1,10 +1,10 @@
 import { Form, Formik } from "formik";
 import React, { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import axios from "../../../config/axios";
-import { toErrorMap } from "../../../utils/toErrorMap";
-import { InputField } from "../../index";
-import { PostData } from "../Posts";
+import { InputField } from "src/components";
+import axios from "src/config/axios";
+import { PostData } from "src/redux/ducks/posts";
+import { toErrorMap } from "src/utils/toErrorMap";
 
 interface EditPostProps {}
 
