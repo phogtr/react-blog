@@ -1,29 +1,39 @@
-const GET_POST = "GET_POST";
+export const GET_POST = "GET_POST";
 const SET_POST = "SET_POST";
 
-interface PostData {
-  title: string;
-  content: string;
-  author: string;
-  postId: string;
+export interface PostData {
+  title?: string;
+  content?: string;
+  author?: string;
+  postId?: string;
 }
-type Actions = { type: typeof GET_POST } | { type: typeof SET_POST; post: PostData };
+
+export interface PostsResponse {
+  data: PostData;
+}
+
+interface PostDataState {
+  posts: PostData[];
+}
+
+type Actions = { type: typeof GET_POST } | { type: typeof SET_POST; posts: PostData };
 
 export const getPost = () => ({
   type: GET_POST,
 });
 
-export const setPost = () => ({
+export const setPost = (posts: PostData) => ({
   type: SET_POST,
+  posts,
 });
 
-type State = PostData[];
+const initialState: PostDataState = { posts: [] };
 
-export const PostsReducer = (state: State, action: Actions) => {
+export const PostsReducer = (state = initialState, action: Actions) => {
   switch (action.type) {
     case SET_POST:
-      const { post } = action;
-      return { ...state, post };
+      const { posts } = action;
+      return { ...state, posts };
     default:
       return state;
   }

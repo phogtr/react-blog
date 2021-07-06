@@ -1,8 +1,10 @@
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Provider } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
 import { NavBar, RouteWrapper } from "./components";
-import { useSession } from "./utils/useSession";
+import store from "./redux/configureStore";
 import { UserContext } from "./utils/UserContext";
-import "bootstrap/dist/css/bootstrap.min.css";
+import { useSession } from "./utils/useSession";
 
 function App() {
   const { userData, setUser } = useSession();
@@ -10,13 +12,15 @@ function App() {
 
   return (
     <>
-      <UserContext.Provider value={value}>
-        <Router>
-          <NavBar />
-          <h1>Hello World</h1>
-          <RouteWrapper />
-        </Router>
-      </UserContext.Provider>
+      <Provider store={store}>
+        <UserContext.Provider value={value}>
+          <Router>
+            <NavBar />
+            <h1>Hello World</h1>
+            <RouteWrapper />
+          </Router>
+        </UserContext.Provider>
+      </Provider>
     </>
   );
 }
