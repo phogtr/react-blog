@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ReduxState } from "src/redux/configureStore";
-import { getPost, PostData } from "src/redux/ducks/posts";
+import { getPost } from "src/redux/ducks/posts/action";
+import { PostData } from "src/redux/ducks/posts/postsReducer";
 import { EachPost } from "..";
 
 interface PostsProps {}

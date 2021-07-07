@@ -1,6 +1,6 @@
 import { applyMiddleware, combineReducers, createStore } from "redux";
 import createSagaMiddleware from "redux-saga";
-import { PostsReducer } from "./ducks/posts";
+import { PostsReducer } from "./ducks/posts/postsReducer";
 import rootSaga from "./sagas/rootSaga";
 
 const reducer = combineReducers({

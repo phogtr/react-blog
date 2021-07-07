@@ -1,8 +1,10 @@
-export const GET_POST = "GET_POST";
-export const DELETE_POST = "DELETE_POST";
-export const CREATE_POST_REQUEST = "CREATE_POST_REQUEST";
-export const CREATE_POST_SUCCESS = "CREATE_POST_SUCCESS";
-const SET_POST = "SET_POST";
+import {
+  CREATE_POST_REQUEST,
+  CREATE_POST_SUCCESS,
+  DELETE_POST,
+  GET_POST,
+  SET_POST,
+} from "./action";
 
 export interface PostData {
   title?: string;
@@ -25,30 +27,6 @@ export type Actions =
   | { type: typeof CREATE_POST_REQUEST; newPost: PostData }
   | { type: typeof CREATE_POST_SUCCESS; successPost: PostData }
   | { type: typeof DELETE_POST; id: string };
-
-export const getPost = () => ({
-  type: GET_POST,
-});
-
-export const setPost = (posts: PostData) => ({
-  type: SET_POST,
-  posts,
-});
-
-export const createPostRequest = (newPost: PostData) => ({
-  type: CREATE_POST_REQUEST,
-  newPost,
-});
-
-export const createPostSuccess = (successPost: PostData) => ({
-  type: CREATE_POST_SUCCESS,
-  successPost,
-});
-
-export const deletePost = (id: string) => ({
-  type: DELETE_POST,
-  id,
-});
 
 const initialState: PostDataState = { posts: [] };
 

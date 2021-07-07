@@ -3,7 +3,8 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { InputField } from "src/components";
-import { createPostRequest, PostData } from "src/redux/ducks/posts";
+import { createPostRequest } from "src/redux/ducks/posts/action";
+import { PostData } from "src/redux/ducks/posts/postsReducer";
 import { toErrorMap } from "src/utils/toErrorMap";
 
 interface CreatePostProps {}

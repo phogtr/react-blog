@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { InputField } from "src/components";
 import axios from "src/config/axios";
-import { PostData } from "src/redux/ducks/posts";
+import { PostData } from "src/redux/ducks/posts/postsReducer";
 import { toErrorMap } from "src/utils/toErrorMap";
 
 interface EditPostProps {}

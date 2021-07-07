@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "src/config/axios";
-import { PostData } from "src/redux/ducks/posts";
+import { PostData } from "src/redux/ducks/posts/postsReducer";
 
 interface SinglePostProps {}
 

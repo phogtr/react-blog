@@ -1,5 +1,5 @@
 import axios from "src/config/axios";
-import { PostData } from "src/redux/ducks/posts";
+import { PostData } from "src/redux/ducks/posts/postsReducer";
 
 export function requestGetPosts() {
   return axios.request({

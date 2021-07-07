@@ -1,7 +1,8 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { deletePost, PostData } from "src/redux/ducks/posts";
+import { deletePost } from "src/redux/ducks/posts/action";
+import { PostData } from "src/redux/ducks/posts/postsReducer";
 
 interface EachPostProps {
   post: PostData;

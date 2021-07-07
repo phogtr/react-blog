@@ -1,15 +1,14 @@
 import { call, put, takeEvery, takeLatest } from "redux-saga/effects";
 import {
-  Actions,
   createPostSuccess,
   CREATE_POST_REQUEST,
   deletePost,
   DELETE_POST,
   GET_POST,
-  PostsResponse,
   setPost,
-} from "src/redux/ducks/posts";
-import { requestCreatePost, requestDeletePost, requestGetPosts } from "../requests/posts";
+} from "src/redux/ducks/posts/action";
+import { Actions, PostsResponse } from "src/redux/ducks/posts/postsReducer";
+import { requestCreatePost, requestDeletePost, requestGetPosts } from "../requests/posts.requests";
 
 function* handleGetPosts() {
   try {
