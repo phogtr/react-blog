@@ -1,28 +1,27 @@
 import { Form, Formik } from "formik";
 import React from "react";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { InputField } from "src/components";
-import axios from "src/config/axios";
-import { PostData } from "src/redux/ducks/posts";
+import { createPostRequest, PostData } from "src/redux/ducks/posts";
 import { toErrorMap } from "src/utils/toErrorMap";
 
 interface CreatePostProps {}
 
-const createPostHandler = async (data: PostData) => {
-  return await axios.post("http://localhost:5000/api/createPost", data);
-};
-
 export const CreatePost: React.FC<CreatePostProps> = () => {
   let history = useHistory();
+  const dispatch = useDispatch();
 
   return (
     <Formik
       initialValues={{ title: "", content: "" }}
       onSubmit={async (values: PostData, { setErrors }) => {
-        // console.log(values);
         try {
-          await createPostHandler(values);
-          history.push("/");
+          dispatch(createPostRequest(values));
+          // temporary timeout so the UI can update accordingly
+          setTimeout(() => {
+            history.push("/");
+          }, 1000);
         } catch (error) {
           setErrors(toErrorMap(error.response.data));
         }

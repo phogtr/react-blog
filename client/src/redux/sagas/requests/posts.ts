@@ -1,4 +1,5 @@
 import axios from "src/config/axios";
+import { PostData } from "src/redux/ducks/posts";
 
 export function requestGetPosts() {
   return axios.request({
@@ -11,5 +12,13 @@ export function requestDeletePost(id: string) {
   return axios.request({
     method: "DELETE",
     url: `http://localhost:5000/api/post/${id}`,
+  });
+}
+
+export function requestCreatePost(newPost: PostData) {
+  return axios.request({
+    method: "POST",
+    url: "http://localhost:5000/api/createPost",
+    data: newPost,
   });
 }

@@ -1,13 +1,15 @@
 import { call, put, takeEvery, takeLatest } from "redux-saga/effects";
 import {
   Actions,
+  createPostSuccess,
+  CREATE_POST_REQUEST,
   deletePost,
   DELETE_POST,
   GET_POST,
   PostsResponse,
   setPost,
 } from "src/redux/ducks/posts";
-import { requestDeletePost, requestGetPosts } from "../requests/posts";
+import { requestCreatePost, requestDeletePost, requestGetPosts } from "../requests/posts";
 
 function* handleGetPosts() {
   try {
@@ -29,7 +31,18 @@ function* handleDeletePost(action: Extract<Actions, { type: "DELETE_POST" }>) {
   }
 }
 
+function* handleCreatePost(action: Extract<Actions, { type: "CREATE_POST_REQUEST" }>) {
+  try {
+    const response: PostsResponse = yield call(requestCreatePost, action.newPost);
+    const { data } = response;
+    yield put(createPostSuccess(data));
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export function* watcherPostSaga() {
   yield takeLatest(GET_POST, handleGetPosts);
   yield takeEvery(DELETE_POST, handleDeletePost);
+  yield takeEvery(CREATE_POST_REQUEST, handleCreatePost);
 }

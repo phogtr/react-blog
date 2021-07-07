@@ -1,5 +1,7 @@
 export const GET_POST = "GET_POST";
 export const DELETE_POST = "DELETE_POST";
+export const CREATE_POST_REQUEST = "CREATE_POST_REQUEST";
+export const CREATE_POST_SUCCESS = "CREATE_POST_SUCCESS";
 const SET_POST = "SET_POST";
 
 export interface PostData {
@@ -20,6 +22,8 @@ interface PostDataState {
 export type Actions =
   | { type: typeof GET_POST }
   | { type: typeof SET_POST; posts: PostData }
+  | { type: typeof CREATE_POST_REQUEST; newPost: PostData }
+  | { type: typeof CREATE_POST_SUCCESS; successPost: PostData }
   | { type: typeof DELETE_POST; id: string };
 
 export const getPost = () => ({
@@ -29,6 +33,16 @@ export const getPost = () => ({
 export const setPost = (posts: PostData) => ({
   type: SET_POST,
   posts,
+});
+
+export const createPostRequest = (newPost: PostData) => ({
+  type: CREATE_POST_REQUEST,
+  newPost,
+});
+
+export const createPostSuccess = (successPost: PostData) => ({
+  type: CREATE_POST_SUCCESS,
+  successPost,
 });
 
 export const deletePost = (id: string) => ({
@@ -43,6 +57,12 @@ export const PostsReducer = (state = initialState, action: Actions) => {
     case SET_POST:
       const { posts } = action;
       return { ...state, posts };
+    case CREATE_POST_SUCCESS:
+      const { successPost } = action;
+      return {
+        ...state,
+        ...successPost,
+      };
     case DELETE_POST:
       const { id } = action;
       return {
