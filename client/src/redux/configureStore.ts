@@ -1,7 +1,7 @@
 import { applyMiddleware, combineReducers, createStore } from "redux";
 import createSagaMiddleware from "redux-saga";
 import { PostsReducer } from "./ducks/posts";
-import { watcherSaga } from "./sagas/rootSaga";
+import rootSaga from "./sagas/rootSaga";
 
 const reducer = combineReducers({
   posts: PostsReducer,
@@ -13,7 +13,7 @@ const middleware = [sagaMiddleware];
 
 const store = createStore(reducer, {}, applyMiddleware(...middleware));
 
-sagaMiddleware.run(watcherSaga);
+sagaMiddleware.run(rootSaga);
 
 export type ReduxState = ReturnType<typeof reducer>;
 export default store;

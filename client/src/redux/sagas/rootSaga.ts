@@ -1,7 +1,6 @@
-import { takeLatest } from "redux-saga/effects";
-import { GET_POST } from "../ducks/posts";
-import { handleGetPosts } from "./handler/posts";
+import { all } from "redux-saga/effects";
+import { watcherPostSaga } from "./handlers/posts";
 
-export function* watcherSaga() {
-  yield takeLatest(GET_POST, handleGetPosts);
+export default function* rootSaga() {
+  yield all([watcherPostSaga()]);
 }
