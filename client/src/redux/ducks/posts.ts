@@ -1,4 +1,5 @@
 export const GET_POST = "GET_POST";
+export const DELETE_POST = "DELETE_POST";
 const SET_POST = "SET_POST";
 
 export interface PostData {
@@ -16,7 +17,10 @@ interface PostDataState {
   posts: PostData[];
 }
 
-type Actions = { type: typeof GET_POST } | { type: typeof SET_POST; posts: PostData };
+export type Actions =
+  | { type: typeof GET_POST }
+  | { type: typeof SET_POST; posts: PostData }
+  | { type: typeof DELETE_POST; id: string };
 
 export const getPost = () => ({
   type: GET_POST,
@@ -27,6 +31,11 @@ export const setPost = (posts: PostData) => ({
   posts,
 });
 
+export const deletePost = (id: string) => ({
+  type: DELETE_POST,
+  id,
+});
+
 const initialState: PostDataState = { posts: [] };
 
 export const PostsReducer = (state = initialState, action: Actions) => {
@@ -34,6 +43,12 @@ export const PostsReducer = (state = initialState, action: Actions) => {
     case SET_POST:
       const { posts } = action;
       return { ...state, posts };
+    case DELETE_POST:
+      const { id } = action;
+      return {
+        ...state,
+        posts: state.posts.filter((p) => p.postId !== id),
+      };
     default:
       return state;
   }
