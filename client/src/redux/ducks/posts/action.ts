@@ -2,7 +2,8 @@ import { PostData } from "./postsReducer";
 
 export const GET_POST = "GET_POST";
 export const SET_POST = "SET_POST";
-export const DELETE_POST = "DELETE_POST";
+export const DELETE_POST_REQUEST = "DELETE_POST_REQUEST";
+export const DELETE_POST_SUCCESS = "DELETE_POST_SUCCESS";
 export const CREATE_POST_REQUEST = "CREATE_POST_REQUEST";
 export const CREATE_POST_SUCCESS = "CREATE_POST_SUCCESS";
 
@@ -25,7 +26,12 @@ export const createPostSuccess = (successPost: PostData) => ({
   successPost,
 });
 
-export const deletePost = (id: string) => ({
-  type: DELETE_POST,
+export const deletePostRequest = (id: string) => ({
+  type: DELETE_POST_REQUEST,
+  id,
+});
+
+export const deletePostSuccess = (id: string) => ({
+  type: DELETE_POST_SUCCESS,
   id,
 });

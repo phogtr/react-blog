@@ -1,7 +1,8 @@
 import {
   CREATE_POST_REQUEST,
   CREATE_POST_SUCCESS,
-  DELETE_POST,
+  DELETE_POST_REQUEST,
+  DELETE_POST_SUCCESS,
   GET_POST,
   SET_POST,
 } from "./action";
@@ -26,7 +27,8 @@ export type Actions =
   | { type: typeof SET_POST; posts: PostData }
   | { type: typeof CREATE_POST_REQUEST; newPost: PostData }
   | { type: typeof CREATE_POST_SUCCESS; successPost: PostData }
-  | { type: typeof DELETE_POST; id: string };
+  | { type: typeof DELETE_POST_REQUEST; id: string }
+  | { type: typeof DELETE_POST_SUCCESS; id: string };
 
 const initialState: PostDataState = { posts: [] };
 
@@ -41,7 +43,7 @@ export const PostsReducer = (state = initialState, action: Actions) => {
         ...state,
         ...successPost,
       };
-    case DELETE_POST:
+    case DELETE_POST_SUCCESS:
       const { id } = action;
       return {
         ...state,
