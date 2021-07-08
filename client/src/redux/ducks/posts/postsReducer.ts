@@ -3,6 +3,8 @@ import {
   CREATE_POST_SUCCESS,
   DELETE_POST_REQUEST,
   DELETE_POST_SUCCESS,
+  GET_SINGLE_POST_REQUEST,
+  GET_SINGLE_POST_SUCCESS,
   GET_POST,
   SET_POST,
 } from "./action";
@@ -18,17 +20,23 @@ export interface PostsResponse {
   data: PostData;
 }
 
-interface PostDataState {
+export interface PostsRes {
+  data: PostData[];
+}
+
+export interface PostDataState {
   posts: PostData[];
 }
 
 export type Actions =
   | { type: typeof GET_POST }
-  | { type: typeof SET_POST; posts: PostData }
+  | { type: typeof SET_POST; posts: PostData[] }
   | { type: typeof CREATE_POST_REQUEST; newPost: PostData }
   | { type: typeof CREATE_POST_SUCCESS; successPost: PostData }
   | { type: typeof DELETE_POST_REQUEST; id: string }
-  | { type: typeof DELETE_POST_SUCCESS; id: string };
+  | { type: typeof DELETE_POST_SUCCESS; id: string }
+  | { type: typeof GET_SINGLE_POST_REQUEST; id: string }
+  | { type: typeof GET_SINGLE_POST_SUCCESS; singlePostId: string };
 
 const initialState: PostDataState = { posts: [] };
 
@@ -48,6 +56,12 @@ export const PostsReducer = (state = initialState, action: Actions) => {
       return {
         ...state,
         posts: state.posts.filter((p) => p.postId !== id),
+      };
+    case GET_SINGLE_POST_SUCCESS:
+      const { singlePostId } = action;
+      return {
+        ...state,
+        posts: state.posts.filter((p) => p.postId === singlePostId),
       };
     default:
       return state;

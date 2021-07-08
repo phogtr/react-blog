@@ -6,6 +6,8 @@ export const DELETE_POST_REQUEST = "DELETE_POST_REQUEST";
 export const DELETE_POST_SUCCESS = "DELETE_POST_SUCCESS";
 export const CREATE_POST_REQUEST = "CREATE_POST_REQUEST";
 export const CREATE_POST_SUCCESS = "CREATE_POST_SUCCESS";
+export const GET_SINGLE_POST_REQUEST = "GET_SINGLE_POST_REQUEST";
+export const GET_SINGLE_POST_SUCCESS = "GET_SINGLE_POST_SUCCESS";
 
 export const getPost = () => ({
   type: GET_POST,
@@ -34,4 +36,14 @@ export const deletePostRequest = (id: string) => ({
 export const deletePostSuccess = (id: string) => ({
   type: DELETE_POST_SUCCESS,
   id,
+});
+
+export const getSinglePostRequest = (id: string) => ({
+  type: GET_SINGLE_POST_REQUEST,
+  id,
+});
+
+export const getSinglePostSuccess = (singlePostId: string) => ({
+  type: GET_SINGLE_POST_SUCCESS,
+  singlePostId,
 });

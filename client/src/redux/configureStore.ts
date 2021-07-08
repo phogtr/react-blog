@@ -15,5 +15,5 @@ const store = createStore(reducer, {}, applyMiddleware(...middleware));
 
 sagaMiddleware.run(rootSaga);
 
-export type ReduxState = ReturnType<typeof reducer>;
+export type ReduxReducer = ReturnType<typeof reducer>;
 export default store;
