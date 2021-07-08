@@ -9,12 +9,12 @@ import {
   GET_SINGLE_POST_REQUEST,
   setPost,
 } from "src/redux/ducks/posts/action";
-import { Actions, PostsResponse } from "src/redux/ducks/posts/postsReducer";
+import { Actions, PostsArrayResponse, PostsResponse } from "src/redux/ducks/posts/postsReducer";
 import { requestCreatePost, requestDeletePost, requestGetPosts } from "../requests/posts.requests";
 
 function* handleGetPosts() {
   try {
-    const response: PostsResponse = yield call(requestGetPosts);
+    const response: PostsArrayResponse = yield call(requestGetPosts);
     const { data } = response;
     yield put(setPost(data));
   } catch (error) {

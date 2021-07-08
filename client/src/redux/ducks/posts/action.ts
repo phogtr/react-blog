@@ -13,7 +13,7 @@ export const getPost = () => ({
   type: GET_POST,
 });
 
-export const setPost = (posts: PostData) => ({
+export const setPost = (posts: PostData[]) => ({
   type: SET_POST,
   posts,
 });

@@ -20,7 +20,7 @@ export interface PostsResponse {
   data: PostData;
 }
 
-export interface PostsRes {
+export interface PostsArrayResponse {
   data: PostData[];
 }
 
