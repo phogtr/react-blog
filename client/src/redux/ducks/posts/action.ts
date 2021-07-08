@@ -8,6 +8,7 @@ export const CREATE_POST_REQUEST = "CREATE_POST_REQUEST";
 export const CREATE_POST_SUCCESS = "CREATE_POST_SUCCESS";
 export const GET_SINGLE_POST_REQUEST = "GET_SINGLE_POST_REQUEST";
 export const GET_SINGLE_POST_SUCCESS = "GET_SINGLE_POST_SUCCESS";
+export const EDIT_POST_REQUEST = "EDIT_POST_REQUEST";
 
 export const getPost = () => ({
   type: GET_POST,
@@ -46,4 +47,10 @@ export const getSinglePostRequest = (id: string) => ({
 export const getSinglePostSuccess = (singlePostId: string) => ({
   type: GET_SINGLE_POST_SUCCESS,
   singlePostId,
+});
+
+export const editPostRequest = (id: string, editPost: PostData) => ({
+  type: EDIT_POST_REQUEST,
+  id,
+  editPost,
 });

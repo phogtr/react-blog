@@ -4,13 +4,19 @@ import {
   CREATE_POST_REQUEST,
   deletePostSuccess,
   DELETE_POST_REQUEST,
+  EDIT_POST_REQUEST,
   getSinglePostSuccess,
   GET_POST,
   GET_SINGLE_POST_REQUEST,
   setPost,
 } from "src/redux/ducks/posts/action";
 import { Actions, PostsArrayResponse, PostsResponse } from "src/redux/ducks/posts/postsReducer";
-import { requestCreatePost, requestDeletePost, requestGetPosts } from "../requests/posts.requests";
+import {
+  requestCreatePost,
+  requestDeletePost,
+  requestEditPost,
+  requestGetPosts,
+} from "../requests/posts.requests";
 
 function* handleGetPosts() {
   try {
@@ -50,9 +56,18 @@ function* handleGetSinglePost(action: Extract<Actions, { type: "GET_SINGLE_POST_
   }
 }
 
+function* handleEditPost(action: Extract<Actions, { type: "EDIT_POST_REQUEST" }>) {
+  try {
+    yield call(requestEditPost, action.id, action.editPost);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export function* watcherPostSaga() {
   yield takeLatest(GET_POST, handleGetPosts);
   yield takeEvery(DELETE_POST_REQUEST, handleDeletePost);
   yield takeEvery(CREATE_POST_REQUEST, handleCreatePost);
   yield takeLatest(GET_SINGLE_POST_REQUEST, handleGetSinglePost);
+  yield takeLatest(EDIT_POST_REQUEST, handleEditPost);
 }

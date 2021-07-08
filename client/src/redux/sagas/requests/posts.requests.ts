@@ -22,3 +22,11 @@ export function requestCreatePost(newPost: PostData) {
     data: newPost,
   });
 }
+
+export function requestEditPost(id: string, editPost: PostData) {
+  return axios.request({
+    method: "PUT",
+    url: `http://localhost:5000/api/post/${id}`,
+    data: editPost,
+  });
+}

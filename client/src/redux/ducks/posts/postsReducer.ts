@@ -7,6 +7,7 @@ import {
   GET_SINGLE_POST_SUCCESS,
   GET_POST,
   SET_POST,
+  EDIT_POST_REQUEST,
 } from "./action";
 
 export interface PostData {
@@ -36,7 +37,8 @@ export type Actions =
   | { type: typeof DELETE_POST_REQUEST; id: string }
   | { type: typeof DELETE_POST_SUCCESS; id: string }
   | { type: typeof GET_SINGLE_POST_REQUEST; id: string }
-  | { type: typeof GET_SINGLE_POST_SUCCESS; singlePostId: string };
+  | { type: typeof GET_SINGLE_POST_SUCCESS; singlePostId: string }
+  | { type: typeof EDIT_POST_REQUEST; id: string; editPost: PostData };
 
 const initialState: PostDataState = { posts: [] };
 
