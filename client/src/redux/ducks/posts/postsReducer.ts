@@ -1,12 +1,10 @@
 import {
   CREATE_POST_REQUEST,
-  CREATE_POST_SUCCESS,
   DELETE_POST_REQUEST,
   DELETE_POST_SUCCESS,
   GET_SINGLE_POST_REQUEST,
   GET_SINGLE_POST_SUCCESS,
-  GET_POST,
-  SET_POST,
+  GET_POST_SUCCESS,
   EDIT_POST_REQUEST,
 } from "./action";
 
@@ -30,10 +28,8 @@ export interface PostDataState {
 }
 
 export type Actions =
-  | { type: typeof GET_POST }
-  | { type: typeof SET_POST; posts: PostData[] }
+  | { type: typeof GET_POST_SUCCESS; posts: PostData[] }
   | { type: typeof CREATE_POST_REQUEST; newPost: PostData }
-  | { type: typeof CREATE_POST_SUCCESS; successPost: PostData }
   | { type: typeof DELETE_POST_REQUEST; id: string }
   | { type: typeof DELETE_POST_SUCCESS; id: string }
   | { type: typeof GET_SINGLE_POST_REQUEST; id: string }
@@ -44,14 +40,11 @@ const initialState: PostDataState = { posts: [] };
 
 export const PostsReducer = (state = initialState, action: Actions) => {
   switch (action.type) {
-    case SET_POST:
+    case GET_POST_SUCCESS:
       const { posts } = action;
-      return { ...state, posts };
-    case CREATE_POST_SUCCESS:
-      const { successPost } = action;
       return {
         ...state,
-        ...successPost,
+        posts: posts,
       };
     case DELETE_POST_SUCCESS:
       const { id } = action;
