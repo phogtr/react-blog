@@ -1,5 +1,6 @@
 export { InputField } from "./InputField/InputField";
-export { RouteWrapper } from "./RouteWrapper/RouteWrapper";
+export { RouteWrapper } from "./TheRoute/RouteWrapper/RouteWrapper";
+export { ProtectedRoute } from "./TheRoute/ProtectedRoute/ProtectedRoute";
 export { NavBar } from "./NavBar/NavBar";
 export { Login } from "./Login/Login";
 export { Register } from "./Register/Register";

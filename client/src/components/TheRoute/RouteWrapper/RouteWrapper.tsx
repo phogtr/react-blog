@@ -1,6 +1,14 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
-import { Posts, Login, Register, CreatePost, SinglePost, EditPost } from "../index";
+import {
+  Posts,
+  Login,
+  Register,
+  CreatePost,
+  SinglePost,
+  EditPost,
+  ProtectedRoute,
+} from "../../index";
 
 interface RouteWrapperProps {}
 
@@ -16,9 +24,7 @@ export const RouteWrapper: React.FC<RouteWrapperProps> = () => {
       <Route path="/login">
         <Login />
       </Route>
-      <Route path="/create-post">
-        <CreatePost />
-      </Route>
+      <ProtectedRoute path="/create-post">{() => <CreatePost />}</ProtectedRoute>
       <Route path="/post/:id">
         <SinglePost />
       </Route>

@@ -15,7 +15,7 @@ export async function getAllPostsHandler(_req: Request, res: Response) {
   const query: FilterQuery<PostDocument> = {};
   const findOptions: QueryOptions = { lean: true };
 
-  const posts = await Post.find(query, {}, findOptions);
+  const posts = await Post.find(query, {}, findOptions).sort({ updatedAt: -1 });
 
   if (!posts) {
     return res.sendStatus(404);
