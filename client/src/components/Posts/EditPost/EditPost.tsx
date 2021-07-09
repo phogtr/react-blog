@@ -1,5 +1,5 @@
 import { Form, Formik } from "formik";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { InputField } from "src/components";
@@ -7,6 +7,7 @@ import axios from "src/config/axios";
 import { editPostRequest } from "src/redux/ducks/posts/action";
 import { PostData } from "src/redux/ducks/posts/postsReducer";
 import { toErrorMap } from "src/utils/toErrorMap";
+import { UserContext } from "src/utils/UserContext";
 
 interface EditPostProps {}
 
@@ -19,6 +20,7 @@ export const EditPost: React.FC<EditPostProps> = () => {
   const [post, setPost] = useState<PostData>({ title: "", content: "" });
   const params = useParams<RouteParams>();
   const dispatch = useDispatch();
+  const { userData } = useContext(UserContext);
   let history = useHistory();
 
   const getPost = async () => {
@@ -39,10 +41,18 @@ export const EditPost: React.FC<EditPostProps> = () => {
     );
   }
 
+  if (postLoaded && userData?.userName !== post.author) {
+    return (
+      <div>
+        <h1>Not Authorized</h1>
+      </div>
+    );
+  }
+
   return (
     <>
       {!postLoaded ? (
-        <div>Loading</div>
+        <h1>Loading........................</h1>
       ) : (
         <Formik
           initialValues={{ title: post.title, content: post.content }} // require conditional rendering to load initial value properly

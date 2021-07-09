@@ -3,6 +3,7 @@ interface errorObject {
   path: string;
 }
 
+// setError() expect: {field: "error message"} where field === path
 export const toErrorMap = (errors: errorObject) => {
   const errorMap: Record<string, string> = {};
   const { errorMessage, path } = errors;
