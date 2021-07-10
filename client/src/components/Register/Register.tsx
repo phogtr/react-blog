@@ -1,21 +1,11 @@
+import { Form, Formik } from "formik";
 import React from "react";
 import { useHistory } from "react-router-dom";
-import { Form, Formik } from "formik";
+import { reqisterRequest } from "src/api/user/userApi";
 import { InputField } from "..";
 import { toErrorMap } from "../../utils/toErrorMap";
-import axios from "../../config/axios";
 
 interface RegisterProps {}
-
-interface RegisterData {
-  name: string;
-  email: string;
-  password: string;
-}
-
-const reqisterRequest = async (data: RegisterData) => {
-  return await axios.post("http://localhost:5000/api/createUser", data);
-};
 
 export const Register: React.FC<RegisterProps> = () => {
   let history = useHistory();

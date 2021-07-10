@@ -2,8 +2,8 @@ import { Form, Formik } from "formik";
 import React, { useContext, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
+import { getSinglePost } from "src/api/post/postApi";
 import { InputField } from "src/components";
-import axios from "src/config/axios";
 import { editPostRequest } from "src/redux/ducks/posts/action";
 import { PostData } from "src/redux/ducks/posts/postsReducer";
 import { toErrorMap } from "src/utils/toErrorMap";
@@ -23,14 +23,11 @@ export const EditPost: React.FC<EditPostProps> = () => {
   const { userData } = useContext(UserContext);
   let history = useHistory();
 
-  const getPost = async () => {
-    const res = await axios.get(`http://localhost:5000/api/post/${params.id}`);
-    setPost(res.data[0]);
-    setPostLoaded(true);
-  };
-
   useEffect(() => {
-    getPost();
+    getSinglePost(params.id).then((data) => {
+      setPost(data);
+      setPostLoaded(true);
+    });
   }, []);
 
   if (!post) {

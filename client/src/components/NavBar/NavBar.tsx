@@ -1,16 +1,16 @@
 import React, { useContext } from "react";
+import { Container, Nav, Navbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { Nav, Navbar, Container } from "react-bootstrap";
+import { logoutRequest } from "src/api/user/userApi";
 import { UserContext } from "../../utils/UserContext";
-import axios from "../../config/axios";
 
 interface NavBarProps {}
 
 export const NavBar: React.FC<NavBarProps> = () => {
   const { userData, setUser } = useContext(UserContext);
 
-  const logoutRequest = async () => {
-    await axios.delete("http://localhost:5000/api/logout");
+  const logoutHandler = async () => {
+    await logoutRequest();
     setUser({});
     localStorage.clear();
   };
@@ -23,7 +23,7 @@ export const NavBar: React.FC<NavBarProps> = () => {
       <Nav.Link as={Link} to="/">
         {userData.userName}
       </Nav.Link>
-      <Nav.Link as={Link} to="/" onClick={logoutRequest}>
+      <Nav.Link as={Link} to="/" onClick={logoutHandler}>
         Logout
       </Nav.Link>
     </Nav>

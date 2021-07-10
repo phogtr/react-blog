@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useParams } from "react-router-dom";
-import axios from "src/config/axios";
+import { getSinglePost } from "src/api/post/postApi";
 import { deletePostRequest } from "src/redux/ducks/posts/action";
 import { PostData } from "src/redux/ducks/posts/postsReducer";
 import { UserContext } from "src/utils/UserContext";
@@ -18,14 +18,10 @@ export const SinglePost: React.FC<SinglePostProps> = () => {
   const { userData } = useContext(UserContext);
   const dispatch = useDispatch();
 
-  // todo: move this to a separate file
-  const getSinglePost = async () => {
-    const res = await axios.get(`http://localhost:5000/api/post/${params.id}`);
-    setSinglePost(res.data[0]);
-  };
-
   useEffect(() => {
-    getSinglePost();
+    getSinglePost(params.id).then((data) => {
+      setSinglePost(data);
+    });
   }, []);
 
   if (!getSinglePost) {

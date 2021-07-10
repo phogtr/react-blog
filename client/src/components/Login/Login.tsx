@@ -1,22 +1,12 @@
+import { Form, Formik } from "formik";
 import React, { useContext } from "react";
 import { useHistory } from "react-router-dom";
-import { Form, Formik } from "formik";
+import { LoginData, loginRequest } from "src/api/user/userApi";
 import { InputField } from "..";
 import { toErrorMap } from "../../utils/toErrorMap";
 import { UserContext } from "../../utils/UserContext";
-import axios from "../../config/axios";
 
 interface LoginProps {}
-
-interface LoginData {
-  email: string;
-  password: string;
-}
-
-const loginRequest = async (data: LoginData) => {
-  const res = await axios.post("http://localhost:5000/api/login", data);
-  return await res.data;
-};
 
 export const Login: React.FC<LoginProps> = () => {
   const { setUser } = useContext(UserContext);
