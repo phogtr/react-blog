@@ -6,8 +6,14 @@ import { UserContext } from "../../utils/UserContext";
 import { GuessNav } from "./Auth/GuessNav";
 import { UserNav } from "./Auth/UserNav";
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme) =>
   createStyles({
+    root: {
+      [theme.breakpoints.up("lg")]: {
+        paddingLeft: 0,
+        paddingRight: 0,
+      },
+    },
     title: {
       flexGrow: 1,
       color: "white",
@@ -35,8 +41,8 @@ export const NavBar: React.FC<NavBarProps> = () => {
 
   return (
     <AppBar position="static">
-      <Container maxWidth="lg">
-        <Toolbar>
+      <Container maxWidth="lg" className={classes.root}>
+        <Toolbar className={classes.root}>
           <Typography component={Link} to={"/"} variant="h6" className={classes.title}>
             React Blog
           </Typography>

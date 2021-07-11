@@ -18,7 +18,6 @@ export const Posts: React.FC<PostsProps> = () => {
 
   return (
     <>
-      <h1>Posts</h1>
       {postsData.posts.map((post: PostData) => (
         <EachPost key={post.postId} post={post} />
       ))}
