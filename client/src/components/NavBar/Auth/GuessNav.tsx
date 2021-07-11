@@ -1,15 +1,25 @@
 import React from "react";
+import { HeaderData } from "../NavBar";
+import { DesktopScreen } from "../Screens/DesktopScreen";
+import { MobileScreen } from "../Screens/MobileScreen";
 
-export interface HeaderData {
-  label: string;
-  href: string;
-}
+const guessHeader: HeaderData[] = [
+  {
+    label: "Login",
+    href: "/login",
+  },
+  {
+    label: "Register",
+    href: "/register",
+  },
+];
 
 interface GuessNavProps {
-  guessHeader: HeaderData[];
-  children: (guessHeader: HeaderData[]) => JSX.Element;
+  isMobile: Boolean;
 }
 
-export const GuessNav: React.FC<GuessNavProps> = ({ guessHeader, children }) => {
-  return children(guessHeader);
+export const GuessNav: React.FC<GuessNavProps> = ({ isMobile }) => {
+  return (
+    <>{isMobile ? <MobileScreen header={guessHeader} /> : <DesktopScreen header={guessHeader} />}</>
+  );
 };

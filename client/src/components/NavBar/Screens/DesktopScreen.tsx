@@ -1,7 +1,9 @@
 import { Button, createStyles, makeStyles } from "@material-ui/core";
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import { HeaderData } from "../Auth/GuessNav";
+import { logoutRequest } from "src/api/user/userApi";
+import { UserContext } from "src/utils/UserContext";
+import { HeaderData } from "../NavBar";
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -22,6 +24,14 @@ interface DesktopScreenProps {
 
 export const DesktopScreen: React.FC<DesktopScreenProps> = ({ header }) => {
   const classes = useStyles();
+  const { userData, setUser } = useContext(UserContext);
+
+  const logoutHandler = async () => {
+    await logoutRequest();
+    setUser({});
+    localStorage.clear();
+  };
+
   return (
     <>
       {header.map(({ label, href }) => (
@@ -29,6 +39,17 @@ export const DesktopScreen: React.FC<DesktopScreenProps> = ({ header }) => {
           {label}
         </Button>
       ))}
+      {userData?.accessToken ? (
+        <Button
+          component={Link}
+          to={"/"}
+          color="inherit"
+          className={classes.nav_link}
+          onClick={() => logoutHandler()}
+        >
+          Logout
+        </Button>
+      ) : null}
     </>
   );
 };
