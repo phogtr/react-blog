@@ -10,7 +10,7 @@ interface PostsProps {}
 export const Posts: React.FC<PostsProps> = () => {
   const dispatch = useDispatch();
   const postsData: PostDataState = useSelector((state: ReduxReducer) => state.posts);
-  console.log(postsData);
+  // console.log(postsData);
 
   useEffect(() => {
     dispatch(getPost());

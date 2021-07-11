@@ -1,10 +1,10 @@
-import { get } from "lodash";
 import { Request, Response } from "express";
-import { jwtSign, jwtDecode } from "../utils/jwt.utils";
+import { get } from "lodash";
 import config from "../config/key";
-import User, { UserDocument } from "../model/user.model";
-import { findUser } from "./user.controller";
 import Session from "../model/session.model";
+import User, { UserDocument } from "../model/user.model";
+import { jwtDecode, jwtSign } from "../utils/jwt.utils";
+import { findUser } from "./user.controller";
 
 export async function createSessionHandler(req: Request, res: Response) {
   // validate email and password
@@ -76,7 +76,7 @@ export async function invalidateSessionHandler(req: Request, res: Response) {
   const sessionId = get(req, "user.session"); // from deserializedUser => req.user = decoded
 
   await Session.updateOne({ _id: sessionId }, { valid: false });
-  // await Session.deleteOne({ _id: sessionId });
+  await Session.deleteOne({ _id: sessionId });
 
   return res.sendStatus(200);
 }

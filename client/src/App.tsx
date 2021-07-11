@@ -1,3 +1,4 @@
+import { CssBaseline } from "@material-ui/core";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Provider } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
@@ -12,6 +13,7 @@ function App() {
 
   return (
     <>
+      <CssBaseline />
       <Provider store={store}>
         <UserContext.Provider value={value}>
           <Router>
