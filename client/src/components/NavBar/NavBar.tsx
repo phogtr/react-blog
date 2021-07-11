@@ -1,12 +1,58 @@
+import { AppBar, Container, Toolbar, Typography, useMediaQuery } from "@material-ui/core";
+import { createStyles, makeStyles, useTheme } from "@material-ui/core/styles";
 import React, { useContext } from "react";
-import { Container, Nav, Navbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { logoutRequest } from "src/api/user/userApi";
 import { UserContext } from "../../utils/UserContext";
+import { GuessNav } from "./Auth/GuessNav";
+import { DesktopScreen } from "./Screens/DesktopScreen";
+
+const guessHeader = [
+  {
+    label: "Login",
+    href: "/login",
+  },
+  {
+    label: "Register",
+    href: "/register",
+  },
+];
+
+let userHeader = [
+  {
+    label: "Create Post",
+    href: "/create-post",
+  },
+  {
+    label: "",
+    href: "/",
+  },
+  {
+    label: "Logout",
+    href: "/",
+  },
+];
+
+const useStyles = makeStyles(() =>
+  createStyles({
+    title: {
+      flexGrow: 1,
+      color: "white",
+      "&:hover": {
+        color: "white",
+        "text-decoration": "none",
+      },
+    },
+  })
+);
 
 interface NavBarProps {}
 
 export const NavBar: React.FC<NavBarProps> = () => {
+  const classes = useStyles();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
   const { userData, setUser } = useContext(UserContext);
 
   const logoutHandler = async () => {
@@ -15,38 +61,75 @@ export const NavBar: React.FC<NavBarProps> = () => {
     localStorage.clear();
   };
 
-  let body = userData?.userName ? (
-    <Nav>
-      <Nav.Link as={Link} to="/create-post">
-        Create Post
-      </Nav.Link>
-      <Nav.Link as={Link} to="/">
-        {userData.userName}
-      </Nav.Link>
-      <Nav.Link as={Link} to="/" onClick={logoutHandler}>
-        Logout
-      </Nav.Link>
-    </Nav>
-  ) : (
-    <Nav>
-      <Nav.Link as={Link} to="/login">
-        Login
-      </Nav.Link>
-      <Nav.Link as={Link} to="/register">
-        Register
-      </Nav.Link>
-    </Nav>
-  );
+  // let desktopScreen = userData?.userName ? (
+  //   <>
+  //     <Button component={Link} to={"/create-post"} color="inherit" className={classes.nav_link}>
+  //       Create Post
+  //     </Button>
+  //     <Button component={Link} to={"/"} color="inherit" className={classes.nav_link}>
+  //       {userData.userName}
+  //     </Button>
+  //     <Button
+  //       component={Link}
+  //       to={"/"}
+  //       color="inherit"
+  //       onClick={logoutHandler}
+  //       className={classes.nav_link}
+  //     >
+  //       Logout
+  //     </Button>
+  //   </>
+  // ) : (
+  //   <>
+  //     <Button component={Link} to={"/login"} color="inherit" className={classes.nav_link}>
+  //       Login
+  //     </Button>
+  //     <Button component={Link} to={"/register"} color="inherit" className={classes.nav_link}>
+  //       Register
+  //     </Button>
+  //   </>
+  // );
+
+  // let mobileScreen = (
+  //   <>
+  //     <IconButton color="inherit" aria-label="menu" onClick={() => setDrawer(true)}>
+  //       <MenuIcon />
+  //     </IconButton>
+  //     <Drawer anchor="top" open={drawer} onClose={() => setDrawer(false)}>
+  //       <List>
+  //         <ListItem button>
+  //           <ListItemText primary="Login" />
+  //         </ListItem>
+  //         <ListItem button>
+  //           <ListItemText primary="Register" />
+  //         </ListItem>
+  //       </List>
+  //     </Drawer>
+  //   </>
+  // );
 
   return (
-    <Navbar bg="dark" variant="dark">
-      <Container>
-        <Navbar.Brand as={Link} to="/">
-          React Blog
-        </Navbar.Brand>
-        <Navbar.Toggle />
-        <Navbar.Collapse className="justify-content-end">{body}</Navbar.Collapse>
+    <AppBar position="static">
+      <Container maxWidth="lg">
+        <Toolbar>
+          <Typography component={Link} to={"/"} variant="h6" className={classes.title}>
+            React Blog
+          </Typography>
+          {userData?.userName ? (
+            <div>User</div>
+          ) : (
+            <>
+              {isMobile ? (
+                <div>Mobile</div>
+              ) : (
+                <GuessNav guessHeader={guessHeader}>
+                  {(header) => <DesktopScreen header={header} />}
+                </GuessNav>
+              )}
+            </>
+          )}
+        </Toolbar>
       </Container>
-    </Navbar>
+    </AppBar>
   );
 };
