@@ -6,9 +6,10 @@ import { MobileScreen } from "../Screens/MobileScreen";
 interface UserNavProps {
   isMobile: Boolean;
   username: string;
+  logoutBtn: () => void;
 }
 
-export const UserNav: React.FC<UserNavProps> = ({ isMobile, username }) => {
+export const UserNav: React.FC<UserNavProps> = ({ isMobile, username, logoutBtn }) => {
   const userHeader: HeaderData[] = [
     {
       label: "Create Post",
@@ -21,6 +22,12 @@ export const UserNav: React.FC<UserNavProps> = ({ isMobile, username }) => {
   ];
 
   return (
-    <>{isMobile ? <MobileScreen header={userHeader} /> : <DesktopScreen header={userHeader} />}</>
+    <>
+      {isMobile ? (
+        <MobileScreen header={userHeader} isLogin={true} logoutBtn={logoutBtn} />
+      ) : (
+        <DesktopScreen header={userHeader} isLogin={true} logoutBtn={logoutBtn} />
+      )}
+    </>
   );
 };

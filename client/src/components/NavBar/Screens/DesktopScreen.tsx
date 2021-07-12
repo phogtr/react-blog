@@ -1,8 +1,6 @@
 import { Button, createStyles, makeStyles } from "@material-ui/core";
-import React, { useContext } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import { logoutRequest } from "src/api/user/userApi";
-import { UserContext } from "src/utils/UserContext";
 import { HeaderData } from "../NavBar";
 
 const useStyles = makeStyles(() =>
@@ -20,17 +18,12 @@ const useStyles = makeStyles(() =>
 
 interface DesktopScreenProps {
   header: HeaderData[];
+  isLogin: Boolean;
+  logoutBtn: () => void;
 }
 
-export const DesktopScreen: React.FC<DesktopScreenProps> = ({ header }) => {
+export const DesktopScreen: React.FC<DesktopScreenProps> = ({ header, isLogin, logoutBtn }) => {
   const classes = useStyles();
-  const { userData, setUser } = useContext(UserContext);
-
-  const logoutHandler = async () => {
-    await logoutRequest();
-    setUser({});
-    localStorage.clear();
-  };
 
   return (
     <>
@@ -39,13 +32,13 @@ export const DesktopScreen: React.FC<DesktopScreenProps> = ({ header }) => {
           {label}
         </Button>
       ))}
-      {userData?.accessToken ? (
+      {isLogin ? (
         <Button
           component={Link}
           to={"/"}
           color="inherit"
           className={classes.nav_link}
-          onClick={() => logoutHandler()}
+          onClick={() => logoutBtn()}
         >
           Logout
         </Button>

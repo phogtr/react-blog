@@ -2,6 +2,7 @@ import { AppBar, Container, Toolbar, Typography, useMediaQuery } from "@material
 import { createStyles, makeStyles, Theme, useTheme } from "@material-ui/core/styles";
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { logoutRequest } from "src/api/user/userApi";
 import { UserContext } from "../../utils/UserContext";
 import { GuessNav } from "./Auth/GuessNav";
 import { UserNav } from "./Auth/UserNav";
@@ -37,7 +38,13 @@ export const NavBar: React.FC<NavBarProps> = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
-  const { userData } = useContext(UserContext);
+  const { userData, setUser } = useContext(UserContext);
+
+  const logoutHandler = async () => {
+    await logoutRequest();
+    setUser({});
+    localStorage.clear();
+  };
 
   return (
     <AppBar position="static">
@@ -48,11 +55,11 @@ export const NavBar: React.FC<NavBarProps> = () => {
           </Typography>
           {userData?.userName ? (
             <>
-              <UserNav isMobile={isMobile} username={userData.userName} />
+              <UserNav isMobile={isMobile} username={userData.userName} logoutBtn={logoutHandler} />
             </>
           ) : (
             <>
-              <GuessNav isMobile={isMobile} />
+              <GuessNav isMobile={isMobile} logoutBtn={logoutHandler} />
             </>
           )}
         </Toolbar>

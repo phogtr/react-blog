@@ -16,10 +16,17 @@ const guessHeader: HeaderData[] = [
 
 interface GuessNavProps {
   isMobile: Boolean;
+  logoutBtn: () => void;
 }
 
-export const GuessNav: React.FC<GuessNavProps> = ({ isMobile }) => {
+export const GuessNav: React.FC<GuessNavProps> = ({ isMobile, logoutBtn }) => {
   return (
-    <>{isMobile ? <MobileScreen header={guessHeader} /> : <DesktopScreen header={guessHeader} />}</>
+    <>
+      {isMobile ? (
+        <MobileScreen header={guessHeader} isLogin={false} logoutBtn={logoutBtn} />
+      ) : (
+        <DesktopScreen header={guessHeader} isLogin={false} logoutBtn={logoutBtn} />
+      )}
+    </>
   );
 };
