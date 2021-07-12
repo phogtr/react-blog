@@ -30,8 +30,8 @@ export const CreatePost: React.FC<CreatePostProps> = () => {
     >
       {() => (
         <Form>
-          <InputField name="title" placeholder="title" />
-          <InputField name="content" placeholder="text..." textarea />
+          <InputField name="title" label="Title" placeholder="title" />
+          <InputField name="content" label="Content" placeholder="text..." textarea />
           <button type="submit">Create Post</button>
         </Form>
       )}

@@ -66,8 +66,8 @@ export const EditPost: React.FC<EditPostProps> = () => {
         >
           {() => (
             <Form>
-              <InputField name="title" placeholder="title" />
-              <InputField name="content" placeholder="text..." textarea />
+              <InputField name="title" label="Title" placeholder="title" />
+              <InputField name="content" label="Content" placeholder="text..." textarea />
               <button type="submit">Edit Post</button>
             </Form>
           )}

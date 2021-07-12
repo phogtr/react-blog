@@ -25,9 +25,15 @@ export const Login: React.FC<LoginProps> = () => {
       }}
     >
       {() => (
-        <Form>
-          <InputField name="email" placeholder="Email" />
-          <InputField name="password" placeholder="Password" type="password" autoComplete="off" />
+        <Form autoComplete="off">
+          <InputField name="email" label="Email" placeholder="Email" />
+          <InputField
+            name="password"
+            label="Password"
+            placeholder="Password"
+            type="password"
+            autoComplete="off"
+          />
           <button type="submit">Login</button>
         </Form>
       )}
