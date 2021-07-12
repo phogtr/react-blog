@@ -1,3 +1,4 @@
+import { Grid } from "@material-ui/core";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ReduxReducer } from "src/redux/configureStore";
@@ -17,10 +18,10 @@ export const Posts: React.FC<PostsProps> = () => {
   }, []);
 
   return (
-    <>
+    <Grid container spacing={5}>
       {postsData.posts.map((post: PostData) => (
         <EachPost key={post.postId} post={post} />
       ))}
-    </>
+    </Grid>
   );
 };

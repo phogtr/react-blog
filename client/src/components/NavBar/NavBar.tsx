@@ -1,12 +1,12 @@
 import { AppBar, Container, Toolbar, Typography, useMediaQuery } from "@material-ui/core";
-import { createStyles, makeStyles, useTheme } from "@material-ui/core/styles";
+import { createStyles, makeStyles, Theme, useTheme } from "@material-ui/core/styles";
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { UserContext } from "../../utils/UserContext";
 import { GuessNav } from "./Auth/GuessNav";
 import { UserNav } from "./Auth/UserNav";
 
-const useStyles = makeStyles((theme) =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       [theme.breakpoints.up("lg")]: {

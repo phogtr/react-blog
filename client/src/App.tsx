@@ -1,5 +1,4 @@
-import { Container, createStyles, CssBaseline, makeStyles } from "@material-ui/core";
-import "bootstrap/dist/css/bootstrap.min.css";
+import { Container, createStyles, CssBaseline, makeStyles, Theme } from "@material-ui/core";
 import { Provider } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
 import { NavBar, RouteWrapper } from "./components";
@@ -7,7 +6,7 @@ import store from "./redux/configureStore";
 import { UserContext } from "./utils/UserContext";
 import { useSession } from "./utils/useSession";
 
-const useStyles = makeStyles((theme) =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       [theme.breakpoints.up("lg")]: {
@@ -22,7 +21,7 @@ const useStyles = makeStyles((theme) =>
         paddingLeft: theme.spacing(4),
         paddingRight: theme.spacing(4),
       },
-      paddingTop: theme.spacing(3),
+      paddingTop: theme.spacing(7),
     },
   })
 );
