@@ -1,3 +1,4 @@
+import { Box, Button } from "@material-ui/core";
 import { Form, Formik } from "formik";
 import React, { useContext } from "react";
 import { useHistory } from "react-router-dom";
@@ -34,7 +35,11 @@ export const Login: React.FC<LoginProps> = () => {
             type="password"
             autoComplete="off"
           />
-          <button type="submit">Login</button>
+          <Box py={2}>
+            <Button type="submit" variant="outlined" color="primary">
+              Login
+            </Button>
+          </Box>
         </Form>
       )}
     </Formik>

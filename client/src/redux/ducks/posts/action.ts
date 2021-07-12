@@ -1,7 +1,7 @@
 import { PostData } from "./postsReducer";
 
 export const GET_POST_REQUEST = "GET_POST_REQUEST";
-export const GET_POST_SUCCESS = "SET_POST_SUCCESS";
+export const GET_POST_SUCCESS = "GET_POST_SUCCESS";
 export const DELETE_POST_REQUEST = "DELETE_POST_REQUEST";
 export const DELETE_POST_SUCCESS = "DELETE_POST_SUCCESS";
 export const CREATE_POST_REQUEST = "CREATE_POST_REQUEST";
