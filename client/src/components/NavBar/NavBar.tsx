@@ -18,6 +18,7 @@ const useStyles = makeStyles((theme: Theme) =>
     title: {
       flexGrow: 1,
       color: "white",
+      "text-decoration": "none",
       "&:hover": {
         color: "white",
         "text-decoration": "none",
