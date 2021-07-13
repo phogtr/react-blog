@@ -1,4 +1,4 @@
-import { Box, Button, Container, Typography } from "@material-ui/core";
+import { Box, Button, Typography } from "@material-ui/core";
 import { Form, Formik } from "formik";
 import React, { useContext } from "react";
 import { useHistory } from "react-router-dom";
@@ -26,7 +26,7 @@ export const Login: React.FC<LoginProps> = () => {
       }}
     >
       {() => (
-        <Container maxWidth="md">
+        <>
           <Box pb={2}>
             <Typography variant="h4">Login</Typography>
           </Box>
@@ -45,7 +45,7 @@ export const Login: React.FC<LoginProps> = () => {
               </Button>
             </Box>
           </Form>
-        </Container>
+        </>
       )}
     </Formik>
   );

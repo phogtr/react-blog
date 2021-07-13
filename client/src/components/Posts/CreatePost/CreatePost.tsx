@@ -1,4 +1,4 @@
-import { Box, Button, Container, Typography } from "@material-ui/core";
+import { Box, Button, Typography } from "@material-ui/core";
 import { Form, Formik } from "formik";
 import React from "react";
 import { useDispatch } from "react-redux";
@@ -30,7 +30,7 @@ export const CreatePost: React.FC<CreatePostProps> = () => {
       }}
     >
       {() => (
-        <Container maxWidth="md">
+        <>
           <Box pb={2}>
             <Typography variant="h4">Create a Post</Typography>
           </Box>
@@ -43,7 +43,7 @@ export const CreatePost: React.FC<CreatePostProps> = () => {
               </Button>
             </Box>
           </Form>
-        </Container>
+        </>
       )}
     </Formik>
   );

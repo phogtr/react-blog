@@ -1,4 +1,4 @@
-import { Box, Button, Container, Typography } from "@material-ui/core";
+import { Box, Button, Typography } from "@material-ui/core";
 import { Form, Formik } from "formik";
 import React, { useContext, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
@@ -66,7 +66,7 @@ export const EditPost: React.FC<EditPostProps> = () => {
           }}
         >
           {() => (
-            <Container maxWidth="md">
+            <>
               <Box pb={2}>
                 <Typography variant="h4">Update a Post</Typography>
               </Box>
@@ -79,7 +79,7 @@ export const EditPost: React.FC<EditPostProps> = () => {
                   </Button>
                 </Box>
               </Form>
-            </Container>
+            </>
           )}
         </Formik>
       )}
