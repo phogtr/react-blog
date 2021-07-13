@@ -3,8 +3,7 @@ import { get } from "lodash";
 import config from "../config/key";
 import Session from "../model/session.model";
 import User, { UserDocument } from "../model/user.model";
-import { jwtDecode, jwtSign } from "../utils/jwt.utils";
-import { findUser } from "./user.controller";
+import { jwtSign } from "../utils/jwt.utils";
 
 export async function createSessionHandler(req: Request, res: Response) {
   // validate email and password
@@ -41,36 +40,37 @@ export async function createSessionHandler(req: Request, res: Response) {
   );
 
   // create refresh token
-  const refreshToken = jwtSign(sessionJson, { expiresIn: config.refreshTokenTime });
+  // const refreshToken = jwtSign(sessionJson, { expiresIn: config.refreshTokenTime });
 
   //send refresh & access token back
-  return res.send({ accessToken, refreshToken, userName });
+  // return res.send({ accessToken, refreshToken, userName });
+  return res.send({ accessToken, userName });
 }
 
 // renew access token
-export async function renewAccessToken(refreshToken: string) {
-  const { decoded } = jwtDecode(refreshToken);
-  console.log(decoded);
+// export async function renewAccessToken(refreshToken: string) {
+//   const { decoded } = jwtDecode(refreshToken);
+//   console.log(decoded);
 
-  if (!decoded) return false;
+//   if (!decoded) return false;
 
-  // find session from the refresh token - line 37 above
-  const session = await Session.findById(get(decoded, "_id"));
+//   // find session from the refresh token - line 37 above
+//   const session = await Session.findById(get(decoded, "_id"));
 
-  if (!session || !session?.valid) return false; // valid true mean still login, false => logout
-  const sessionJson = await session.toJSON();
+//   if (!session || !session?.valid) return false; // valid true mean still login, false => logout
+//   const sessionJson = await session.toJSON();
 
-  const user = await findUser({ _id: sessionJson.user });
+//   const user = await findUser({ _id: sessionJson.user });
 
-  if (!user) return false;
+//   if (!user) return false;
 
-  const accessToken = jwtSign(
-    { ...user, session: sessionJson._id },
-    { expiresIn: config.accessTokenTime }
-  );
+//   const accessToken = jwtSign(
+//     { ...user, session: sessionJson._id },
+//     { expiresIn: config.accessTokenTime }
+//   );
 
-  return accessToken;
-}
+//   return accessToken;
+// }
 
 export async function invalidateSessionHandler(req: Request, res: Response) {
   const sessionId = get(req, "user.session"); // from deserializedUser => req.user = decoded

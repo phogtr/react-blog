@@ -46,16 +46,19 @@ export const SinglePost: React.FC<SinglePostProps> = () => {
       </Typography>
       {userData?.userName === singlePost.author ? (
         <Box mt={2}>
-          <IconButton aria-label="edit" component={Link} to={`/edit/${singlePost.postId}`}>
-            <EditOutlinedIcon fontSize="large" />
-          </IconButton>
-
-          <IconButton
-            aria-label="delete"
-            onClick={() => dispatch(deletePostRequest(singlePost.postId!))}
-          >
-            <DeleteOutlineIcon fontSize="large" />
-          </IconButton>
+          <Box display="inline" mr={1}>
+            <IconButton aria-label="edit" component={Link} to={`/edit/${singlePost.postId}`}>
+              <EditOutlinedIcon fontSize="large" />
+            </IconButton>
+          </Box>
+          <Box display="inline" ml={1}>
+            <IconButton
+              aria-label="delete"
+              onClick={() => dispatch(deletePostRequest(singlePost.postId!))}
+            >
+              <DeleteOutlineIcon fontSize="large" />
+            </IconButton>
+          </Box>
         </Box>
       ) : (
         <></>
