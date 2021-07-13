@@ -1,4 +1,4 @@
-import { Box, Button } from "@material-ui/core";
+import { Box, Button, Container, Typography } from "@material-ui/core";
 import { Form, Formik } from "formik";
 import React from "react";
 import { useHistory } from "react-router-dom";
@@ -26,22 +26,27 @@ export const Register: React.FC<RegisterProps> = () => {
       }}
     >
       {() => (
-        <Form autoComplete="off">
-          <InputField name="name" label="Name" placeholder="Username" />
-          <InputField name="email" label="Email" placeholder="Email" />
-          <InputField
-            name="password"
-            label="Password"
-            placeholder="Password"
-            type="password"
-            autoComplete="off"
-          />
-          <Box py={2}>
-            <Button type="submit" variant="outlined" color="primary">
-              Register
-            </Button>
+        <Container maxWidth="md">
+          <Box pb={2}>
+            <Typography variant="h4">Register</Typography>
           </Box>
-        </Form>
+          <Form autoComplete="off">
+            <InputField name="name" label="Name" placeholder="Username" />
+            <InputField name="email" label="Email" placeholder="Email" />
+            <InputField
+              name="password"
+              label="Password"
+              placeholder="Password"
+              type="password"
+              autoComplete="off"
+            />
+            <Box py={2}>
+              <Button type="submit" variant="outlined" color="primary">
+                Register
+              </Button>
+            </Box>
+          </Form>
+        </Container>
       )}
     </Formik>
   );
