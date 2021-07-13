@@ -1,3 +1,6 @@
+import { Box, IconButton, Typography } from "@material-ui/core";
+import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
+import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
 import React, { useContext, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useParams } from "react-router-dom";
@@ -24,7 +27,7 @@ export const SinglePost: React.FC<SinglePostProps> = () => {
     });
   }, []);
 
-  if (!getSinglePost) {
+  if (!singlePost) {
     return (
       <div>
         <h1>Could not find this post</h1>
@@ -34,20 +37,29 @@ export const SinglePost: React.FC<SinglePostProps> = () => {
 
   return (
     <>
-      <div>
-        <h1>{singlePost.title}</h1>
-        <div>{singlePost.content}</div>
-        {userData?.userName === singlePost.author ? (
-          <>
-            <button onClick={() => dispatch(deletePostRequest(singlePost.postId!))}>Delete</button>
-            <Link to={`/edit/${singlePost.postId}`}>
-              <button>Edit</button>
-            </Link>
-          </>
-        ) : (
-          <></>
-        )}
-      </div>
+      <Typography variant="h3">{singlePost.title}</Typography>
+      <Box mb={3.5}>
+        <Typography variant="h6">Posted by {singlePost.author}</Typography>
+      </Box>
+      <Typography variant="body1" component="p">
+        {singlePost.content}
+      </Typography>
+      {userData?.userName === singlePost.author ? (
+        <Box mt={2}>
+          <IconButton aria-label="edit" component={Link} to={`/edit/${singlePost.postId}`}>
+            <EditOutlinedIcon fontSize="large" />
+          </IconButton>
+
+          <IconButton
+            aria-label="delete"
+            onClick={() => dispatch(deletePostRequest(singlePost.postId!))}
+          >
+            <DeleteOutlineIcon fontSize="large" />
+          </IconButton>
+        </Box>
+      ) : (
+        <></>
+      )}
     </>
   );
 };

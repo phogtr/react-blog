@@ -1,16 +1,18 @@
 import {
   Box,
-  Button,
   Card,
   CardActionArea,
   CardActions,
   CardContent,
   createStyles,
   Grid,
+  IconButton,
   makeStyles,
   Theme,
   Typography,
 } from "@material-ui/core";
+import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
+import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
 import React, { useContext } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
@@ -40,50 +42,51 @@ export const EachPost: React.FC<EachPostProps> = ({ post }) => {
 
   return (
     <Grid item xs={12}>
-      <Box boxShadow={1}>
-        <Card>
-          <Grid container>
-            <Grid item md={10} sm={9} xs={8}>
-              <CardActionArea>
-                <CardContent>
-                  <Link to={`/post/${post.postId}`} className={classes.link}>
-                    <Typography variant="h5" component="h2" className={classes.text_color}>
-                      {post.title}
+      <Card elevation={3}>
+        <Grid container>
+          <Grid item md={10} sm={9} xs={8}>
+            <CardActionArea>
+              <CardContent>
+                <Link to={`/post/${post.postId}`} className={classes.link}>
+                  <Typography variant="h5" component="h2" className={classes.text_color} noWrap>
+                    {post.title}
+                  </Typography>
+                  <Box paddingBottom={2}>
+                    <Typography variant="subtitle1" className={classes.text_color}>
+                      Posted by {post.author}
                     </Typography>
-                    <Box paddingBottom={2}>
-                      <Typography variant="subtitle1" className={classes.text_color}>
-                        Posted by {post.author}
-                      </Typography>
-                    </Box>
-                    <Typography variant="body2" color="textSecondary" component="p">
-                      {post.content}
-                    </Typography>
-                  </Link>
-                </CardContent>
-              </CardActionArea>
-            </Grid>
+                  </Box>
+                  <Typography variant="body2" color="textSecondary" component="p" noWrap>
+                    {post.content}
+                  </Typography>
+                </Link>
+              </CardContent>
+            </CardActionArea>
+          </Grid>
 
-            {userData?.userName === post.author ? (
-              <Grid item md={2} sm={3} xs container justifyContent="center" alignItems="center">
-                <CardActions>
-                  <Button
-                    size="small"
-                    color="primary"
+          {userData?.userName === post.author ? (
+            <Grid item md={2} sm={3} xs container justifyContent="center" alignItems="center">
+              <CardActions>
+                <Box mx={1}>
+                  <IconButton aria-label="edit" component={Link} to={`/edit/${post.postId}`}>
+                    <EditOutlinedIcon />
+                  </IconButton>
+                </Box>
+                <Box mx={1}>
+                  <IconButton
+                    aria-label="delete"
                     onClick={() => dispatch(deletePostRequest(post.postId!))}
                   >
-                    Delete
-                  </Button>
-                  <Button component={Link} to={`/edit/${post.postId}`} size="small" color="primary">
-                    Edit
-                  </Button>
-                </CardActions>
-              </Grid>
-            ) : (
-              <></>
-            )}
-          </Grid>
-        </Card>
-      </Box>
+                    <DeleteOutlineIcon />
+                  </IconButton>
+                </Box>
+              </CardActions>
+            </Grid>
+          ) : (
+            <></>
+          )}
+        </Grid>
+      </Card>
     </Grid>
   );
 };

@@ -15,12 +15,17 @@ const useStyles = makeStyles((theme: Theme) =>
         paddingRight: 0,
       },
     },
+    nav_color: {
+      backgroundColor: "#ff9800",
+    },
     title: {
       flexGrow: 1,
-      color: "white",
+    },
+    title_link: {
+      color: "black",
       "text-decoration": "none",
       "&:hover": {
-        color: "white",
+        color: "black",
         "text-decoration": "none",
       },
     },
@@ -48,11 +53,13 @@ export const NavBar: React.FC<NavBarProps> = () => {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" className={classes.nav_color}>
       <Container maxWidth="lg" className={classes.root}>
         <Toolbar className={classes.root}>
-          <Typography component={Link} to={"/"} variant="h6" className={classes.title}>
-            React Blog
+          <Typography variant="h5" className={classes.title}>
+            <Link to={"/"} className={classes.title_link}>
+              React Blog
+            </Link>
           </Typography>
           {userData?.userName ? (
             <>

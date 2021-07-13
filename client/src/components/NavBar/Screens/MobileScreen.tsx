@@ -15,7 +15,7 @@ export const MobileScreen: React.FC<MobileScreenProps> = ({ header, isLogin, log
 
   return (
     <>
-      <IconButton color="inherit" aria-label="menu" onClick={() => setDrawer(true)}>
+      <IconButton color="default" aria-label="menu" onClick={() => setDrawer(true)}>
         <MenuIcon />
       </IconButton>
       <Drawer anchor="top" open={drawer} onClose={() => setDrawer(false)}>

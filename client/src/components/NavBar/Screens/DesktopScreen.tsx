@@ -6,9 +6,10 @@ import { HeaderData } from "../NavBar";
 const useStyles = makeStyles(() =>
   createStyles({
     nav_link: {
+      color: "black",
       "&:hover": {
         color: "white",
-        opacity: 0.8,
+        opacity: 0.7,
         "text-decoration": "none",
         "background-color": "transparent",
       },
