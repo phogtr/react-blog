@@ -1,12 +1,13 @@
-import { get } from "lodash";
 import { Request, Response } from "express";
+import { get } from "lodash";
 import { DocumentDefinition, FilterQuery, QueryOptions, UpdateQuery } from "mongoose";
 import Post, { PostDocument } from "../model/post.model";
 
 export async function createPostHandler(req: Request, res: Response) {
   const reqUsername = get(req, "user.name"); // deserializeUser set this
+  const reqUserId = get(req, "user._id");
   const postObj: DocumentDefinition<PostDocument> = req.body;
-  const post = await Post.create({ ...postObj, author: reqUsername });
+  const post = await Post.create({ ...postObj, authorId: reqUserId, author: reqUsername });
 
   return res.send(post);
 }

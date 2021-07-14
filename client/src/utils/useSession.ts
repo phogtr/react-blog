@@ -2,7 +2,7 @@ import { useState } from "react";
 
 export interface UserDataObj {
   accessToken?: string;
-  refreshToken?: string;
+  userId?: string;
   userName?: string;
 }
 

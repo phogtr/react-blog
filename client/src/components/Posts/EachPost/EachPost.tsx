@@ -9,7 +9,7 @@ import {
   IconButton,
   makeStyles,
   Theme,
-  Typography,
+  Typography
 } from "@material-ui/core";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
@@ -64,7 +64,7 @@ export const EachPost: React.FC<EachPostProps> = ({ post }) => {
             </CardActionArea>
           </Grid>
 
-          {userData?.userName === post.author ? (
+          {userData?.userId === post.authorId ? (
             <Grid item md={2} sm={3} xs container justifyContent="center" alignItems="center">
               <CardActions>
                 <Box mx={1}>

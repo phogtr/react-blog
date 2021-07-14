@@ -9,6 +9,7 @@ import {
 export interface PostData {
   title?: string;
   content?: string;
+  authorId?: string;
   author?: string;
   postId?: string;
 }

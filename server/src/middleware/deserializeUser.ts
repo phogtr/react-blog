@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { get } from "lodash";
 import { jwtDecode } from "../utils/jwt.utils";
 
-const deserializeUser = async (req: Request, res: Response, next: NextFunction) => {
+const deserializeUser = async (req: Request, _res: Response, next: NextFunction) => {
   // https://security.stackexchange.com/questions/108662/why-is-bearer-required-before-the-token-in-authorization-header-in-a-http-re
   const accessToken = get(req, "headers.authorization", "").replace(/^Bearer\s/, "");
   // const refreshToken = get(req, "headers.x-refresh");

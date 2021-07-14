@@ -44,7 +44,7 @@ export const SinglePost: React.FC<SinglePostProps> = () => {
       <Typography variant="body1" component="p">
         {singlePost.content}
       </Typography>
-      {userData?.userName === singlePost.author ? (
+      {userData?.userId === singlePost.authorId ? (
         <Box mt={2}>
           <Box display="inline" mr={1}>
             <IconButton aria-label="edit" component={Link} to={`/edit/${singlePost.postId}`}>
