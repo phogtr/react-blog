@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { getSinglePost } from "src/api/post/postApi";
 import { InputField } from "src/components";
+import { DialogConfirm } from "src/components/utils/DialogConfirm/DialogConfirm";
 import { editPostRequest } from "src/redux/ducks/posts/action";
 import { PostData } from "src/redux/ducks/posts/postsReducer";
 import { toErrorMap } from "src/utils/toErrorMap";
@@ -19,6 +20,7 @@ interface RouteParams {
 export const EditPost: React.FC<EditPostProps> = () => {
   const [postLoaded, setPostLoaded] = useState(Boolean); // Conditional rendering
   const [post, setPost] = useState<PostData>({ title: "", content: "" });
+  const [openDialog, setOpenDialog] = React.useState(false);
   const params = useParams<RouteParams>();
   const dispatch = useDispatch();
   const { userData } = useContext(UserContext);
@@ -30,6 +32,11 @@ export const EditPost: React.FC<EditPostProps> = () => {
       setPostLoaded(true);
     });
   }, []);
+
+  const handleCloseDialog = () => {
+    setOpenDialog(false);
+    history.push("/");
+  };
 
   if (!post) {
     return (
@@ -55,11 +62,9 @@ export const EditPost: React.FC<EditPostProps> = () => {
         <Formik
           initialValues={{ title: post.title, content: post.content }} // require conditional rendering to load initial value properly
           onSubmit={async (values: PostData, { setErrors }) => {
-            dispatch(editPostRequest(params.id, values)); // do we really need redux for this?
             try {
-              setTimeout(() => {
-                history.push("/");
-              }, 1000);
+              dispatch(editPostRequest(params.id, values)); // do we really need redux for this?
+              setOpenDialog(true);
             } catch (error) {
               setErrors(toErrorMap(error.response.data));
             }
@@ -79,6 +84,12 @@ export const EditPost: React.FC<EditPostProps> = () => {
                   </Button>
                 </Box>
               </Form>
+              <DialogConfirm
+                openDialog={openDialog}
+                prompt={"Post Updated Successfully"}
+                handleCloseDialog={handleCloseDialog}
+                handleCloseDialogConfirm={handleCloseDialog}
+              />
             </>
           )}
         </Formik>

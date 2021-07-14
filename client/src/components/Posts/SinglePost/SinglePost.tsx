@@ -3,8 +3,9 @@ import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
 import React, { useContext, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+import { Link, useHistory, useParams } from "react-router-dom";
 import { getSinglePost } from "src/api/post/postApi";
+import { DialogConfirm } from "src/components";
 import { deletePostRequest } from "src/redux/ducks/posts/action";
 import { PostData } from "src/redux/ducks/posts/postsReducer";
 import { UserContext } from "src/utils/UserContext";
@@ -17,15 +18,27 @@ interface RouteParams {
 
 export const SinglePost: React.FC<SinglePostProps> = () => {
   const [singlePost, setSinglePost] = useState<PostData>({ title: "", content: "" });
+  const [openDialog, setOpenDialog] = React.useState(false);
   const params = useParams<RouteParams>();
   const { userData } = useContext(UserContext);
   const dispatch = useDispatch();
+  let history = useHistory();
 
   useEffect(() => {
     getSinglePost(params.id).then((data) => {
       setSinglePost(data);
     });
   }, []);
+
+  const handleDeleteCancel = () => {
+    setOpenDialog(false);
+  };
+
+  const handleDeleteConfirm = () => {
+    dispatch(deletePostRequest(singlePost.postId!));
+    setOpenDialog(false);
+    history.push("/");
+  };
 
   if (!singlePost) {
     return (
@@ -45,21 +58,27 @@ export const SinglePost: React.FC<SinglePostProps> = () => {
         {singlePost.content}
       </Typography>
       {userData?.userId === singlePost.authorId ? (
-        <Box mt={2}>
-          <Box display="inline" mr={1}>
-            <IconButton aria-label="edit" component={Link} to={`/edit/${singlePost.postId}`}>
-              <EditOutlinedIcon fontSize="large" />
-            </IconButton>
+        <>
+          <Box mt={2}>
+            <Box display="inline" mr={1}>
+              <IconButton aria-label="edit" component={Link} to={`/edit/${singlePost.postId}`}>
+                <EditOutlinedIcon fontSize="large" />
+              </IconButton>
+            </Box>
+            <Box display="inline" ml={1}>
+              <IconButton aria-label="delete" onClick={() => setOpenDialog(true)}>
+                <DeleteOutlineIcon fontSize="large" />
+              </IconButton>
+            </Box>
           </Box>
-          <Box display="inline" ml={1}>
-            <IconButton
-              aria-label="delete"
-              onClick={() => dispatch(deletePostRequest(singlePost.postId!))}
-            >
-              <DeleteOutlineIcon fontSize="large" />
-            </IconButton>
-          </Box>
-        </Box>
+          <DialogConfirm
+            openDialog={openDialog}
+            prompt={"Do you want to delete this post?"}
+            isDeleteBtn={true}
+            handleCloseDialog={handleDeleteCancel}
+            handleCloseDialogConfirm={handleDeleteConfirm}
+          />
+        </>
       ) : (
         <></>
       )}

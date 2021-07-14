@@ -9,13 +9,14 @@ import {
   IconButton,
   makeStyles,
   Theme,
-  Typography
+  Typography,
 } from "@material-ui/core";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
 import React, { useContext } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { DialogConfirm } from "src/components/utils/DialogConfirm/DialogConfirm";
 import { deletePostRequest } from "src/redux/ducks/posts/action";
 import { PostData } from "src/redux/ducks/posts/postsReducer";
 import { UserContext } from "src/utils/UserContext";
@@ -36,9 +37,19 @@ interface EachPostProps {
 }
 
 export const EachPost: React.FC<EachPostProps> = ({ post }) => {
+  const [openDialog, setOpenDialog] = React.useState(false);
   const { userData } = useContext(UserContext);
   const dispatch = useDispatch();
   const classes = useStyles();
+
+  const handleDeleteCancel = () => {
+    setOpenDialog(false);
+  };
+
+  const handleDeleteConfirm = () => {
+    dispatch(deletePostRequest(post.postId!));
+    setOpenDialog(false);
+  };
 
   return (
     <Grid item xs={12}>
@@ -73,10 +84,7 @@ export const EachPost: React.FC<EachPostProps> = ({ post }) => {
                   </IconButton>
                 </Box>
                 <Box mx={1}>
-                  <IconButton
-                    aria-label="delete"
-                    onClick={() => dispatch(deletePostRequest(post.postId!))}
-                  >
+                  <IconButton aria-label="delete" onClick={() => setOpenDialog(true)}>
                     <DeleteOutlineIcon />
                   </IconButton>
                 </Box>
@@ -87,6 +95,13 @@ export const EachPost: React.FC<EachPostProps> = ({ post }) => {
           )}
         </Grid>
       </Card>
+      <DialogConfirm
+        openDialog={openDialog}
+        prompt={"Do you want to delete this post?"}
+        isDeleteBtn={true}
+        handleCloseDialog={handleDeleteCancel}
+        handleCloseDialogConfirm={handleDeleteConfirm}
+      />
     </Grid>
   );
 };

@@ -1,4 +1,3 @@
-export { InputField } from "./InputField/InputField";
 export { Layout } from "./Layout/Layout";
 export { Login } from "./Login/Login";
 export { NavBar } from "./NavBar/NavBar";
@@ -10,3 +9,5 @@ export { SinglePost } from "./Posts/SinglePost/SinglePost";
 export { Register } from "./Register/Register";
 export { ProtectedRoute } from "./TheRoute/ProtectedRoute/ProtectedRoute";
 export { RouteWrapper } from "./TheRoute/RouteWrapper/RouteWrapper";
+export { DialogConfirm } from "./utils/DialogConfirm/DialogConfirm";
+export { InputField } from "./utils/InputField/InputField";
