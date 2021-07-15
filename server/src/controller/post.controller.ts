@@ -38,14 +38,19 @@ export async function getSinglePostHandler(req: Request, res: Response) {
 }
 
 export async function updatePostHandler(req: Request, res: Response) {
+  const reqUserId = get(req, "user._id");
   const postId = req.params.postId;
   const query: FilterQuery<PostDocument> = { postId };
   const findOptions: QueryOptions = { lean: true };
 
-  const post = await Post.find(query, {}, findOptions);
+  const post = await Post.findOne(query, {}, findOptions);
 
   if (!post) {
     return res.sendStatus(404);
+  }
+
+  if (String(post.authorId) !== reqUserId) {
+    return res.sendStatus(401);
   }
 
   const update: UpdateQuery<PostDocument> = req.body;
@@ -57,14 +62,19 @@ export async function updatePostHandler(req: Request, res: Response) {
 }
 
 export async function deletePostHandler(req: Request, res: Response) {
+  const reqUserId = get(req, "user._id");
   const postId = req.params.postId;
   const query: FilterQuery<PostDocument> = { postId };
   const findOptions: QueryOptions = { lean: true };
 
-  const post = await Post.find(query, {}, findOptions);
+  const post = await Post.findOne(query, {}, findOptions);
 
   if (!post) {
     return res.sendStatus(404);
+  }
+
+  if (String(post.authorId) !== reqUserId) {
+    return res.sendStatus(401);
   }
 
   await Post.deleteOne(query);
