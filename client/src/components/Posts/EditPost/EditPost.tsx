@@ -1,12 +1,10 @@
 import { Box, Button, Typography } from "@material-ui/core";
 import { Form, Formik } from "formik";
 import React, { useContext, useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
-import { getSinglePost } from "src/api/post/postApi";
+import { editPostHandler, getSinglePost } from "src/api/post/postApi";
 import { InputField } from "src/components";
 import { DialogConfirm } from "src/components/utils/DialogConfirm/DialogConfirm";
-import { editPostRequest } from "src/redux/ducks/posts/action";
 import { PostData } from "src/redux/ducks/posts/postsReducer";
 import { toErrorMap } from "src/utils/toErrorMap";
 import { UserContext } from "src/utils/UserContext";
@@ -22,7 +20,7 @@ export const EditPost: React.FC<EditPostProps> = () => {
   const [post, setPost] = useState<PostData>({ title: "", content: "" });
   const [openDialog, setOpenDialog] = React.useState(false);
   const params = useParams<RouteParams>();
-  const dispatch = useDispatch();
+
   const { userData } = useContext(UserContext);
   let history = useHistory();
 
@@ -63,7 +61,7 @@ export const EditPost: React.FC<EditPostProps> = () => {
           initialValues={{ title: post.title, content: post.content }} // require conditional rendering to load initial value properly
           onSubmit={async (values: PostData, { setErrors }) => {
             try {
-              dispatch(editPostRequest(params.id, values)); // do we really need redux for this?
+              await editPostHandler(params.id, values);
               setOpenDialog(true);
             } catch (error) {
               setErrors(toErrorMap(error.response.data));

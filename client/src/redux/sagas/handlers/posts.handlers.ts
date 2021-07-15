@@ -1,19 +1,12 @@
 import { call, put, takeEvery, takeLatest } from "redux-saga/effects";
 import {
-  CREATE_POST_REQUEST,
   deletePostSuccess,
   DELETE_POST_REQUEST,
-  EDIT_POST_REQUEST,
   getPostSuccess,
   GET_POST_REQUEST,
 } from "src/redux/ducks/posts/action";
 import { Actions, PostsArrayResponse } from "src/redux/ducks/posts/postsReducer";
-import {
-  requestCreatePost,
-  requestDeletePost,
-  requestEditPost,
-  requestGetPosts,
-} from "../requests/posts.requests";
+import { requestDeletePost, requestGetPosts } from "../requests/posts.requests";
 
 function* handleGetPosts() {
   try {
@@ -35,25 +28,25 @@ function* handleDeletePost(action: Extract<Actions, { type: "DELETE_POST_REQUEST
   }
 }
 
-function* handleCreatePost(action: Extract<Actions, { type: "CREATE_POST_REQUEST" }>) {
-  try {
-    yield call(requestCreatePost, action.newPost);
-  } catch (error) {
-    console.log(error);
-  }
-}
+// function* handleCreatePost(action: Extract<Actions, { type: "CREATE_POST_REQUEST" }>) {
+//   try {
+//     yield call(requestCreatePost, action.newPost);
+//   } catch (error) {
+//     console.log(error);
+//   }
+// }
 
-function* handleEditPost(action: Extract<Actions, { type: "EDIT_POST_REQUEST" }>) {
-  try {
-    yield call(requestEditPost, action.id, action.editPost);
-  } catch (error) {
-    console.log(error);
-  }
-}
+// function* handleEditPost(action: Extract<Actions, { type: "EDIT_POST_REQUEST" }>) {
+//   try {
+//     yield call(requestEditPost, action.id, action.editPost);
+//   } catch (error) {
+//     console.log(error);
+//   }
+// }
 
 export function* watcherPostSaga() {
   yield takeLatest(GET_POST_REQUEST, handleGetPosts);
   yield takeEvery(DELETE_POST_REQUEST, handleDeletePost);
-  yield takeEvery(CREATE_POST_REQUEST, handleCreatePost);
-  yield takeLatest(EDIT_POST_REQUEST, handleEditPost);
+  // yield takeEvery(CREATE_POST_REQUEST, handleCreatePost);
+  // yield takeLatest(EDIT_POST_REQUEST, handleEditPost);
 }

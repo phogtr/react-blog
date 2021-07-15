@@ -18,9 +18,11 @@ export const InputField: React.FC<InputFieldProps> = ({ textarea, ...props }) =>
       {textarea ? (
         <TextField
           {...field}
+          error={error ? true : false}
           id={field.name}
           label={props.label}
           placeholder={props.placeholder}
+          helperText={error ? error : null}
           multiline
           rows={4}
           fullWidth

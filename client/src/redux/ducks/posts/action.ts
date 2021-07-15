@@ -4,8 +4,8 @@ export const GET_POST_REQUEST = "GET_POST_REQUEST";
 export const GET_POST_SUCCESS = "GET_POST_SUCCESS";
 export const DELETE_POST_REQUEST = "DELETE_POST_REQUEST";
 export const DELETE_POST_SUCCESS = "DELETE_POST_SUCCESS";
-export const CREATE_POST_REQUEST = "CREATE_POST_REQUEST";
-export const EDIT_POST_REQUEST = "EDIT_POST_REQUEST";
+// export const CREATE_POST_REQUEST = "CREATE_POST_REQUEST";
+// export const EDIT_POST_REQUEST = "EDIT_POST_REQUEST";
 
 export const getPost = () => ({
   type: GET_POST_REQUEST,
@@ -16,10 +16,10 @@ export const getPostSuccess = (posts: PostData[]) => ({
   posts,
 });
 
-export const createPostRequest = (newPost: PostData) => ({
-  type: CREATE_POST_REQUEST,
-  newPost,
-});
+// export const createPostRequest = (newPost: PostData) => ({
+//   type: CREATE_POST_REQUEST,
+//   newPost,
+// });
 
 export const deletePostRequest = (id: string) => ({
   type: DELETE_POST_REQUEST,
@@ -31,8 +31,8 @@ export const deletePostSuccess = (id: string) => ({
   id,
 });
 
-export const editPostRequest = (id: string, editPost: PostData) => ({
-  type: EDIT_POST_REQUEST,
-  id,
-  editPost,
-});
+// export const editPostRequest = (id: string, editPost: PostData) => ({
+//   type: EDIT_POST_REQUEST,
+//   id,
+//   editPost,
+// });

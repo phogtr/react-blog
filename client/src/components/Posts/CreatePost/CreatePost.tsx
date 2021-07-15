@@ -1,10 +1,9 @@
 import { Box, Button, Typography } from "@material-ui/core";
 import { Form, Formik } from "formik";
 import React from "react";
-import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { createPostHandler } from "src/api/post/postApi";
 import { DialogConfirm, InputField } from "src/components";
-import { createPostRequest } from "src/redux/ducks/posts/action";
 import { PostData } from "src/redux/ducks/posts/postsReducer";
 import { toErrorMap } from "src/utils/toErrorMap";
 
@@ -13,7 +12,6 @@ interface CreatePostProps {}
 export const CreatePost: React.FC<CreatePostProps> = () => {
   const [openDialog, setOpenDialog] = React.useState(false);
   let history = useHistory();
-  const dispatch = useDispatch();
 
   const handleCloseDialog = () => {
     setOpenDialog(false);
@@ -25,7 +23,7 @@ export const CreatePost: React.FC<CreatePostProps> = () => {
       initialValues={{ title: "", content: "" }}
       onSubmit={async (values: PostData, { setErrors }) => {
         try {
-          dispatch(createPostRequest(values));
+          await createPostHandler(values);
           setOpenDialog(true);
         } catch (error) {
           setErrors(toErrorMap(error.response.data));

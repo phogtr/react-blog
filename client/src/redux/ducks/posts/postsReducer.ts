@@ -1,10 +1,4 @@
-import {
-  CREATE_POST_REQUEST,
-  DELETE_POST_REQUEST,
-  DELETE_POST_SUCCESS,
-  EDIT_POST_REQUEST,
-  GET_POST_SUCCESS,
-} from "./action";
+import { DELETE_POST_REQUEST, DELETE_POST_SUCCESS, GET_POST_SUCCESS } from "./action";
 
 export interface PostData {
   title?: string;
@@ -28,10 +22,10 @@ export interface PostDataState {
 
 export type Actions =
   | { type: typeof GET_POST_SUCCESS; posts: PostData[] }
-  | { type: typeof CREATE_POST_REQUEST; newPost: PostData }
+  // | { type: typeof CREATE_POST_REQUEST; newPost: PostData }
   | { type: typeof DELETE_POST_REQUEST; id: string }
-  | { type: typeof DELETE_POST_SUCCESS; id: string }
-  | { type: typeof EDIT_POST_REQUEST; id: string; editPost: PostData };
+  | { type: typeof DELETE_POST_SUCCESS; id: string };
+// | { type: typeof EDIT_POST_REQUEST; id: string; editPost: PostData };
 
 const initialState: PostDataState = { posts: [] };
 
