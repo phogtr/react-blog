@@ -1,4 +1,4 @@
-import { Box, IconButton, Typography } from "@material-ui/core";
+import { Box, CircularProgress, IconButton, Typography } from "@material-ui/core";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
 import React, { useContext, useEffect, useState } from "react";
@@ -17,6 +17,7 @@ interface RouteParams {
 }
 
 export const SinglePost: React.FC<SinglePostProps> = () => {
+  const [postLoaded, setPostLoaded] = useState(Boolean);
   const [singlePost, setSinglePost] = useState<PostData>({ title: "", content: "" });
   const [openDialog, setOpenDialog] = React.useState(false);
   const params = useParams<RouteParams>();
@@ -27,6 +28,7 @@ export const SinglePost: React.FC<SinglePostProps> = () => {
   useEffect(() => {
     getSinglePost(params.id).then((data) => {
       setSinglePost(data);
+      setPostLoaded(true);
     });
   }, []);
 
@@ -42,45 +44,56 @@ export const SinglePost: React.FC<SinglePostProps> = () => {
 
   if (!singlePost) {
     return (
-      <div>
-        <h1>Could not find this post</h1>
-      </div>
+      <>
+        <Typography variant="h3" component="h1">
+          Could not find this post
+        </Typography>
+      </>
     );
   }
 
   return (
     <>
-      <Typography variant="h3">{singlePost.title}</Typography>
-      <Box mb={3.5}>
-        <Typography variant="h6">Posted by {singlePost.author}</Typography>
-      </Box>
-      <Typography variant="body1" component="p">
-        {singlePost.content}
-      </Typography>
-      {userData?.userId === singlePost.authorId ? (
-        <>
-          <Box mt={2}>
-            <Box display="inline" mr={1}>
-              <IconButton aria-label="edit" component={Link} to={`/edit/${singlePost.postId}`}>
-                <EditOutlinedIcon fontSize="large" />
-              </IconButton>
-            </Box>
-            <Box display="inline" ml={1}>
-              <IconButton aria-label="delete" onClick={() => setOpenDialog(true)}>
-                <DeleteOutlineIcon fontSize="large" />
-              </IconButton>
-            </Box>
-          </Box>
-          <DialogConfirm
-            openDialog={openDialog}
-            prompt={"Do you want to delete this post?"}
-            isDeleteBtn={true}
-            handleCloseDialog={handleDeleteCancel}
-            handleCloseDialogConfirm={handleDeleteConfirm}
-          />
-        </>
+      {!postLoaded ? (
+        <div>
+          <CircularProgress />
+        </div>
       ) : (
-        <></>
+        <>
+          <Typography variant="h3">{singlePost.title}</Typography>
+          <Box mb={3.5}>
+            <Typography variant="h6">Posted by {singlePost.author}</Typography>
+          </Box>
+          <Typography variant="body1" component="p">
+            {singlePost.content}
+          </Typography>
+
+          {userData.userId === singlePost.authorId ? (
+            <>
+              <Box mt={2}>
+                <Box display="inline" mr={1}>
+                  <IconButton aria-label="edit" component={Link} to={`/edit/${singlePost.postId}`}>
+                    <EditOutlinedIcon fontSize="large" />
+                  </IconButton>
+                </Box>
+                <Box display="inline" ml={1}>
+                  <IconButton aria-label="delete" onClick={() => setOpenDialog(true)}>
+                    <DeleteOutlineIcon fontSize="large" />
+                  </IconButton>
+                </Box>
+              </Box>
+              <DialogConfirm
+                openDialog={openDialog}
+                prompt={"Do you want to delete this post?"}
+                isDeleteBtn={true}
+                handleCloseDialog={handleDeleteCancel}
+                handleCloseDialogConfirm={handleDeleteConfirm}
+              />
+            </>
+          ) : (
+            <></>
+          )}
+        </>
       )}
     </>
   );

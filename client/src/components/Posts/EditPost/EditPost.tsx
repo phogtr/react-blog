@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from "@material-ui/core";
+import { Box, Button, CircularProgress, Typography } from "@material-ui/core";
 import { Form, Formik } from "formik";
 import React, { useContext, useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
@@ -38,24 +38,30 @@ export const EditPost: React.FC<EditPostProps> = () => {
 
   if (!post) {
     return (
-      <div>
-        <h1>Could not find this post</h1>
-      </div>
+      <>
+        <Typography variant="h3" component="h1">
+          Could not find this post
+        </Typography>
+      </>
     );
   }
 
   if (postLoaded && userData?.userName !== post.author) {
     return (
-      <div>
-        <h1>Not Authorized</h1>
-      </div>
+      <>
+        <Typography variant="h3" component="h1">
+          Not Authorized
+        </Typography>
+      </>
     );
   }
 
   return (
     <>
       {!postLoaded ? (
-        <h1>Loading........................</h1>
+        <div>
+          <CircularProgress />
+        </div>
       ) : (
         <Formik
           initialValues={{ title: post.title, content: post.content }} // require conditional rendering to load initial value properly
