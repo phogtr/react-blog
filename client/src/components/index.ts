@@ -7,6 +7,8 @@ export { EditPost } from "./Posts/EditPost/EditPost";
 export { Posts } from "./Posts/Posts";
 export { SinglePost } from "./Posts/SinglePost/SinglePost";
 export { Register } from "./Register/Register";
+export { ContainerWrapperRoute } from "./TheRoute/ContainerWrapperRoute/ContainerWrapperRoute";
+export { NotFoundRoute } from "./TheRoute/NotFoundRoute/NotFoundRoute";
 export { ProtectedRoute } from "./TheRoute/ProtectedRoute/ProtectedRoute";
 export { RouteWrapper } from "./TheRoute/RouteWrapper/RouteWrapper";
 export { DialogConfirm } from "./utils/DialogConfirm/DialogConfirm";
