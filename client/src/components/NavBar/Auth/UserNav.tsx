@@ -17,7 +17,7 @@ export const UserNav: React.FC<UserNavProps> = ({ isMobile, username, logoutBtn 
     },
     {
       label: username,
-      href: "/",
+      href: "",
     },
   ];
 

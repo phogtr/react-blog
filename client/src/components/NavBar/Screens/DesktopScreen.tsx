@@ -14,6 +14,11 @@ const useStyles = makeStyles(() =>
         "background-color": "transparent",
       },
     },
+    root: {
+      "&.Mui-disabled": {
+        color: "black",
+      },
+    },
   })
 );
 
@@ -28,8 +33,26 @@ export const DesktopScreen: React.FC<DesktopScreenProps> = ({ header, isLogin, l
 
   return (
     <>
+      {/* {isLogin ? (
+        <Button
+          component={Link}
+          to={"/create-post"}
+          color="inherit"
+          className={classes.nav_link}
+          variant="outlined"
+        >
+          Create Post
+        </Button>
+      ) : null} */}
       {header.map(({ label, href }) => (
-        <Button key={label} component={Link} to={href} color="inherit" className={classes.nav_link}>
+        <Button
+          key={label}
+          component={Link}
+          to={href}
+          disabled={href === "" ? true : false}
+          color="inherit"
+          className={href === "" ? classes.root : classes.nav_link}
+        >
           {label}
         </Button>
       ))}
