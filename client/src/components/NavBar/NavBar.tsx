@@ -1,4 +1,4 @@
-import { AppBar, Container, Toolbar, Typography, useMediaQuery } from "@material-ui/core";
+import { AppBar, Container, Snackbar, Toolbar, Typography, useMediaQuery } from "@material-ui/core";
 import { createStyles, makeStyles, Theme, useTheme } from "@material-ui/core/styles";
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
@@ -40,6 +40,7 @@ export interface HeaderData {
 interface NavBarProps {}
 
 export const NavBar: React.FC<NavBarProps> = () => {
+  const [openSnackbar, setOpenSnackbar] = React.useState(false);
   const classes = useStyles();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
@@ -50,28 +51,45 @@ export const NavBar: React.FC<NavBarProps> = () => {
     await logoutRequest();
     setUser({});
     localStorage.clear();
+    setOpenSnackbar(true);
   };
 
   return (
-    <AppBar position="static" className={classes.nav_color}>
-      <Container maxWidth="lg" className={classes.root}>
-        <Toolbar className={classes.root}>
-          <Typography variant="h5" className={classes.title}>
-            <Link to={"/"} className={classes.title_link}>
-              React Blog
-            </Link>
-          </Typography>
-          {userData?.userName ? (
-            <>
-              <UserNav isMobile={isMobile} username={userData.userName} logoutBtn={logoutHandler} />
-            </>
-          ) : (
-            <>
-              <GuessNav isMobile={isMobile} logoutBtn={logoutHandler} />
-            </>
-          )}
-        </Toolbar>
-      </Container>
-    </AppBar>
+    <>
+      <AppBar position="static" className={classes.nav_color}>
+        <Container maxWidth="lg" className={classes.root}>
+          <Toolbar className={classes.root}>
+            <Typography variant="h5" className={classes.title}>
+              <Link to={"/"} className={classes.title_link}>
+                React Blog
+              </Link>
+            </Typography>
+            {userData?.userName ? (
+              <>
+                <UserNav
+                  isMobile={isMobile}
+                  username={userData.userName}
+                  logoutBtn={logoutHandler}
+                />
+              </>
+            ) : (
+              <>
+                <GuessNav isMobile={isMobile} logoutBtn={logoutHandler} />
+              </>
+            )}
+          </Toolbar>
+        </Container>
+      </AppBar>
+      <Snackbar
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "center",
+        }}
+        open={openSnackbar}
+        autoHideDuration={6000}
+        onClose={() => setOpenSnackbar(false)}
+        message="Logout Successfully"
+      />
+    </>
   );
 };

@@ -2,25 +2,29 @@ import { Box, Button, Typography } from "@material-ui/core";
 import { Form, Formik } from "formik";
 import React from "react";
 import { useHistory } from "react-router-dom";
-import { reqisterRequest } from "src/api/user/userApi";
-import { InputField } from "..";
+import { RegisterData, reqisterRequest } from "src/api/user/userApi";
+import { DialogConfirm, InputField } from "..";
 import { toErrorMap } from "../../utils/toErrorMap";
 
 interface RegisterProps {}
 
 export const Register: React.FC<RegisterProps> = () => {
+  const [openDialog, setOpenDialog] = React.useState(false);
   let history = useHistory();
+
+  const handleCloseDialog = () => {
+    setOpenDialog(false);
+    history.push("/login");
+  };
 
   return (
     <Formik
       initialValues={{ name: "", email: "", password: "" }}
-      onSubmit={async (values, { setErrors }) => {
-        // console.log(values);
+      onSubmit={async (values: RegisterData, { setErrors }) => {
         try {
           await reqisterRequest(values);
-          history.push("/login");
+          setOpenDialog(true);
         } catch (error) {
-          // console.log(error.response.data);
           setErrors(toErrorMap(error.response.data));
         }
       }}
@@ -46,6 +50,12 @@ export const Register: React.FC<RegisterProps> = () => {
               </Button>
             </Box>
           </Form>
+          <DialogConfirm
+            openDialog={openDialog}
+            prompt={"User Registered Successfully"}
+            handleCloseDialog={handleCloseDialog}
+            handleCloseDialogConfirm={handleCloseDialog}
+          />
         </>
       )}
     </Formik>

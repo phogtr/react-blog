@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
-import { ContainerWrapperRoute } from "src/components/TheRoute/ContainerWrapperRoute/ContainerWrapperRoute";
 import {
+  ContainerWrapperRoute,
   CreatePost,
   EditPost,
   Login,
