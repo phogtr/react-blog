@@ -25,25 +25,31 @@ const useStyles = makeStyles(() =>
 interface DesktopScreenProps {
   header: HeaderData[];
   isLogin: Boolean;
+  isAdmin: Boolean | undefined;
   logoutBtn: () => void;
 }
 
-export const DesktopScreen: React.FC<DesktopScreenProps> = ({ header, isLogin, logoutBtn }) => {
+export const DesktopScreen: React.FC<DesktopScreenProps> = ({
+  header,
+  isLogin,
+  isAdmin,
+  logoutBtn,
+}) => {
   const classes = useStyles();
 
   return (
     <>
-      {/* {isLogin ? (
+      {isAdmin ? (
         <Button
           component={Link}
-          to={"/create-post"}
+          to={"/admin"}
           color="inherit"
           className={classes.nav_link}
           variant="outlined"
         >
-          Create Post
+          Admin
         </Button>
-      ) : null} */}
+      ) : null}
       {header.map(({ label, href }) => (
         <Button
           key={label}

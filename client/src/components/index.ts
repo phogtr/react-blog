@@ -1,3 +1,4 @@
+export { Admin } from "./Admin/Admin";
 export { Layout } from "./Layout/Layout";
 export { Login } from "./Login/Login";
 export { NavBar } from "./NavBar/NavBar";

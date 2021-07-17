@@ -23,9 +23,9 @@ export const GuessNav: React.FC<GuessNavProps> = ({ isMobile, logoutBtn }) => {
   return (
     <>
       {isMobile ? (
-        <MobileScreen header={guessHeader} isLogin={false} logoutBtn={logoutBtn} />
+        <MobileScreen header={guessHeader} isLogin={false} isAdmin={false} logoutBtn={logoutBtn} />
       ) : (
-        <DesktopScreen header={guessHeader} isLogin={false} logoutBtn={logoutBtn} />
+        <DesktopScreen header={guessHeader} isLogin={false} isAdmin={false} logoutBtn={logoutBtn} />
       )}
     </>
   );

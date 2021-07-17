@@ -35,10 +35,16 @@ const useStyles = makeStyles(() =>
 interface MobileScreenProps {
   header: HeaderData[];
   isLogin: Boolean;
+  isAdmin: Boolean | undefined;
   logoutBtn: () => void;
 }
 
-export const MobileScreen: React.FC<MobileScreenProps> = ({ header, isLogin, logoutBtn }) => {
+export const MobileScreen: React.FC<MobileScreenProps> = ({
+  header,
+  isLogin,
+  isAdmin,
+  logoutBtn,
+}) => {
   const [drawer, setDrawer] = useState(Boolean);
   const classes = useStyles();
 
@@ -50,6 +56,11 @@ export const MobileScreen: React.FC<MobileScreenProps> = ({ header, isLogin, log
       <Drawer anchor="top" open={drawer} onClose={() => setDrawer(false)}>
         <div onClick={() => setDrawer(false)}>
           <List className={classes.drawer}>
+            {isAdmin ? (
+              <ListItem component={Link} to={"/admin"} button>
+                <ListItemText primary="Admin" className={classes.drawer_text} />
+              </ListItem>
+            ) : null}
             {header.map(({ label, href }) => (
               <ListItem
                 component={Link}

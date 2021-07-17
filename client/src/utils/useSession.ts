@@ -4,6 +4,7 @@ export interface UserDataObj {
   accessToken?: string;
   userId?: string;
   userName?: string;
+  isAdmin?: Boolean;
 }
 
 export const useSession = () => {

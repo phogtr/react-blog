@@ -1,6 +1,7 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import {
+  Admin,
   ContainerWrapperRoute,
   CreatePost,
   EditPost,
@@ -26,6 +27,7 @@ export const RouteWrapper: React.FC<RouteWrapperProps> = () => {
         <ProtectedRoute path="/create-post">{() => <CreatePost />}</ProtectedRoute>
         <ContainerWrapperRoute path="/post/:id">{() => <SinglePost />}</ContainerWrapperRoute>
         <ContainerWrapperRoute path="/edit/:id">{() => <EditPost />}</ContainerWrapperRoute>
+        <ContainerWrapperRoute path="/admin">{() => <Admin />}</ContainerWrapperRoute>
         <ContainerWrapperRoute>{() => <NotFoundRoute />}</ContainerWrapperRoute>
       </Switch>
     </>

@@ -46,6 +46,7 @@ export const NavBar: React.FC<NavBarProps> = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const { userData, setUser } = useContext(UserContext);
+  const isAdmin = userData.isAdmin;
 
   const logoutHandler = async () => {
     await logoutRequest();
@@ -69,6 +70,7 @@ export const NavBar: React.FC<NavBarProps> = () => {
                 <UserNav
                   isMobile={isMobile}
                   username={userData.userName}
+                  isAdmin={isAdmin}
                   logoutBtn={logoutHandler}
                 />
               </>
