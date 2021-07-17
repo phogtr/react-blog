@@ -6,8 +6,7 @@ import {
   getSinglePostHandler,
   updatePostHandler,
 } from "../controller/post.controller";
-import requireUser from "../middleware/requireUser";
-import validateRequest from "../middleware/validateRequest";
+import { requireUser, validateRequest } from "../middleware";
 import { createPostSchema } from "../validation";
 
 export default function (app: Express) {

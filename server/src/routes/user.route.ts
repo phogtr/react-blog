@@ -1,8 +1,8 @@
 import { Express } from "express";
-import { createUserHandler } from "../controller/user.controller";
 import { createSessionHandler, invalidateSessionHandler } from "../controller/session.controller";
-import { createUserSchema, createSessionSchema } from "../validation";
-import validateRequest from "../middleware/validateRequest";
+import { createUserHandler } from "../controller/user.controller";
+import { validateRequest } from "../middleware";
+import { createSessionSchema, createUserSchema } from "../validation";
 
 export default function (app: Express) {
   // create a user
