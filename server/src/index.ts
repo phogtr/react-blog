@@ -1,9 +1,9 @@
-import express from "express";
-import log from "./logger";
-import connect from "./db/connect";
-import { postRoute, userRoute } from "./routes/";
-import deserializeUser from "./middleware/deserializeUser";
 import cors from "cors";
+import express from "express";
+import connect from "./db/connect";
+import log from "./logger";
+import { deserializeUser } from "./middleware/";
+import { adminRoute, postRoute, userRoute } from "./routes/";
 
 const app = express();
 
@@ -21,4 +21,5 @@ app.listen(PORT, () => {
   connect();
   postRoute(app);
   userRoute(app);
+  adminRoute(app);
 });
