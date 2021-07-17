@@ -68,13 +68,23 @@ export const SinglePost: React.FC<SinglePostProps> = () => {
             {singlePost.content}
           </Typography>
 
-          {userData.userId === singlePost.authorId ? (
+          {userData.userId === singlePost.authorId || userData?.isAdmin === true ? (
             <>
               <Box mt={2}>
                 <Box display="inline" mr={1}>
-                  <IconButton aria-label="edit" component={Link} to={`/edit/${singlePost.postId}`}>
-                    <EditOutlinedIcon fontSize="large" />
-                  </IconButton>
+                  {userData?.userId === singlePost.authorId || userData?.isAdmin === false ? (
+                    <>
+                      <IconButton
+                        aria-label="edit"
+                        component={Link}
+                        to={`/edit/${singlePost.postId}`}
+                      >
+                        <EditOutlinedIcon fontSize="large" />
+                      </IconButton>
+                    </>
+                  ) : (
+                    <></>
+                  )}
                 </Box>
                 <Box display="inline" ml={1}>
                   <IconButton aria-label="delete" onClick={() => setOpenDialog(true)}>

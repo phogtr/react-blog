@@ -88,7 +88,7 @@ export const NavBar: React.FC<NavBarProps> = () => {
           horizontal: "center",
         }}
         open={openSnackbar}
-        autoHideDuration={6000}
+        autoHideDuration={3000}
         onClose={() => setOpenSnackbar(false)}
         message="Logout Successfully"
       />

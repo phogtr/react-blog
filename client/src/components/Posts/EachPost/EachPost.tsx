@@ -74,14 +74,19 @@ export const EachPost: React.FC<EachPostProps> = ({ post }) => {
               </CardContent>
             </CardActionArea>
           </Grid>
-
-          {userData?.userId === post.authorId ? (
+          {userData?.userId === post.authorId || userData?.isAdmin === true ? (
             <Grid item md={2} sm={3} xs container justifyContent="center" alignItems="center">
               <CardActions>
                 <Box mx={1}>
-                  <IconButton aria-label="edit" component={Link} to={`/edit/${post.postId}`}>
-                    <EditOutlinedIcon />
-                  </IconButton>
+                  {userData?.userId === post.authorId || userData?.isAdmin === false ? (
+                    <>
+                      <IconButton aria-label="edit" component={Link} to={`/edit/${post.postId}`}>
+                        <EditOutlinedIcon />
+                      </IconButton>
+                    </>
+                  ) : (
+                    <></>
+                  )}
                 </Box>
                 <Box mx={1}>
                   <IconButton aria-label="delete" onClick={() => setOpenDialog(true)}>

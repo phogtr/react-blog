@@ -63,6 +63,7 @@ export async function updatePostHandler(req: Request, res: Response) {
 
 export async function deletePostHandler(req: Request, res: Response) {
   const reqUserId = get(req, "user._id");
+  const reqUserAdmin = get(req, "user.isAdmin");
   const postId = req.params.postId;
   const query: FilterQuery<PostDocument> = { postId };
   const findOptions: QueryOptions = { lean: true };
@@ -73,7 +74,7 @@ export async function deletePostHandler(req: Request, res: Response) {
     return res.sendStatus(404);
   }
 
-  if (String(post.authorId) !== reqUserId) {
+  if (String(post.authorId) !== reqUserId && reqUserAdmin === false) {
     return res.sendStatus(401);
   }
 
