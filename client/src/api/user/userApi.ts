@@ -23,3 +23,12 @@ export const loginRequest = async (data: LoginData) => {
 export const logoutRequest = async () => {
   await axios.delete("http://localhost:5000/api/logout");
 };
+
+export const getAllUsersRequest = async () => {
+  const res = await axios.get("http://localhost:5000/api/admin/getUsers");
+  return await res.data;
+};
+
+export const deleteUserRequest = async (id: string) => {
+  await axios.delete(`http://localhost:5000/api/admin/${id}`);
+};
