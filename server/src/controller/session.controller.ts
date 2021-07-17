@@ -29,6 +29,7 @@ export async function createSessionHandler(req: Request, res: Response) {
   const userJson = user.toJSON();
   const userName = userJson.name;
   const userId = userJson._id;
+  const isAdmin = userJson.isAdmin;
 
   // create a session
   const session = await Session.create({ user: userId, userAgent: req.get("user-agent") });
@@ -45,7 +46,7 @@ export async function createSessionHandler(req: Request, res: Response) {
 
   //send refresh & access token back
   // return res.send({ accessToken, refreshToken, userName });
-  return res.send({ accessToken, userId, userName });
+  return res.send({ accessToken, userId, userName, isAdmin });
 }
 
 // renew access token

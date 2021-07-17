@@ -1,11 +1,13 @@
 import bcrypt from "bcrypt";
 import mongoose from "mongoose";
+import { nanoid } from "nanoid";
 import config from "../config/key";
 
 export interface UserDocument extends mongoose.Document {
   email: string;
   password: string;
   name: string;
+  isAdmin: boolean;
   createdAt: Date;
   updatedAt: Date;
   comparePassword(pw: string): Promise<boolean>;
@@ -13,9 +15,16 @@ export interface UserDocument extends mongoose.Document {
 
 const UserSchema = new mongoose.Schema(
   {
+    userId: {
+      type: String,
+      required: true,
+      unique: true,
+      default: () => nanoid(10),
+    },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     name: { type: String, required: true },
+    isAdmin: { type: Boolean, default: false },
   },
   { timestamps: true }
 );
