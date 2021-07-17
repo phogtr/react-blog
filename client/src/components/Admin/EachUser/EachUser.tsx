@@ -1,7 +1,7 @@
 import { Box, Button, Card, CardActions, CardContent, Grid, Typography } from "@material-ui/core";
 import React, { useContext } from "react";
 import { useHistory } from "react-router-dom";
-import { deleteUserRequest } from "src/api/user/userApi";
+import { deleteUserRequest, updateUserRequest } from "src/api/user/userApi";
 import { DialogConfirm } from "src/components";
 import { admin } from "src/config/admin";
 import { UserContext } from "src/utils/UserContext";
@@ -12,17 +12,28 @@ interface EachUserProps {
 }
 
 export const EachUser: React.FC<EachUserProps> = ({ user }) => {
-  const [openDialog, setOpenDialog] = React.useState(false);
+  const [openDialogDelete, setOpenDialogDelete] = React.useState(false);
+  const [openDialogUpdate, setOpenDialogUpdate] = React.useState(false);
   const { userData } = useContext(UserContext);
   let history = useHistory();
 
-  const handleDeleteCancel = () => {
-    setOpenDialog(false);
-  };
+  // const handleDeleteDialogCancel = () => {
+  //   setOpenDialogDelete(false);
+  // };
+
+  // const handleUpdateDialogCancel = () => {
+  //   setOpenDialogDelete(false);
+  // };
 
   const handleDeleteConfirm = async () => {
     await deleteUserRequest(user.userId);
-    setOpenDialog(false);
+    setOpenDialogDelete(false);
+    history.go(0);
+  };
+
+  const handleUpdateConfirm = async () => {
+    await updateUserRequest(user.userId);
+    setOpenDialogUpdate(false);
     history.go(0);
   };
 
@@ -51,14 +62,14 @@ export const EachUser: React.FC<EachUserProps> = ({ user }) => {
           <>
             <CardActions>
               <Box ml={1}>
-                <Button variant="outlined" onClick={() => console.log("Delete")}>
-                  Promote user
+                <Button variant="outlined" onClick={() => setOpenDialogUpdate(true)}>
+                  {user.isAdmin ? "Demote User" : "Promote User"}
                 </Button>
               </Box>
             </CardActions>
             <CardActions>
               <Box ml={1} mb={2}>
-                <Button variant="contained" onClick={() => setOpenDialog(true)}>
+                <Button variant="contained" onClick={() => setOpenDialogDelete(true)}>
                   Delete user
                 </Button>
               </Box>
@@ -67,11 +78,18 @@ export const EachUser: React.FC<EachUserProps> = ({ user }) => {
         )}
       </Card>
       <DialogConfirm
-        openDialog={openDialog}
+        openDialog={openDialogDelete}
         prompt={"Do you want to delete this user?"}
         isDeleteBtn={true}
-        handleCloseDialog={handleDeleteCancel}
+        handleCloseDialog={() => setOpenDialogDelete(false)}
         handleCloseDialogConfirm={handleDeleteConfirm}
+      />
+      <DialogConfirm
+        openDialog={openDialogUpdate}
+        prompt={"Do you want to change the role of this user?"}
+        isDeleteBtn={true}
+        handleCloseDialog={() => setOpenDialogUpdate(false)}
+        handleCloseDialogConfirm={handleUpdateConfirm}
       />
     </Grid>
   );

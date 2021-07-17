@@ -28,3 +28,19 @@ export async function deleteUserHandler(req: Request, res: Response) {
   await User.deleteOne(query);
   return res.sendStatus(200);
 }
+
+export async function updateUserHandler(req: Request, res: Response) {
+  const userId = req.params.userId;
+  const query: FilterQuery<UserDocument> = { userId };
+  const findOptions: QueryOptions = { lean: true };
+
+  const user = await User.findOne(query, {}, findOptions);
+
+  if (!user) {
+    return res.sendStatus(404);
+  }
+
+  await User.updateOne(query, { isAdmin: !user.isAdmin });
+
+  return res.sendStatus(200);
+}

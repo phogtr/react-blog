@@ -32,3 +32,7 @@ export const getAllUsersRequest = async () => {
 export const deleteUserRequest = async (id: string) => {
   await axios.delete(`http://localhost:5000/api/admin/${id}`);
 };
+
+export const updateUserRequest = async (id: string) => {
+  await axios.put(`http://localhost:5000/api/admin/${id}`);
+};
