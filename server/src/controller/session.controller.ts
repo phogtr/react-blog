@@ -26,13 +26,13 @@ export async function createSessionHandler(req: Request, res: Response) {
     });
   }
 
-  const userJson = await user.toJSON();
+  const userJson = user.toJSON();
   const userName = userJson.name;
   const userId = userJson._id;
 
   // create a session
   const session = await Session.create({ user: userId, userAgent: req.get("user-agent") });
-  const sessionJson = await session.toJSON();
+  const sessionJson = session.toJSON();
 
   // create access token
   const accessToken = jwtSign(

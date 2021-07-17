@@ -8,10 +8,6 @@ export interface PostData {
   postId?: string;
 }
 
-export interface PostsResponse {
-  data: PostData;
-}
-
 export interface PostsArrayResponse {
   data: PostData[];
 }

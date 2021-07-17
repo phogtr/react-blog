@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import config from "../config/key";
 import log from "../logger";
 
-const connect = () => {
+const connect = async () => {
   const dbUri = config.dbURL;
 
   return mongoose

@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
 import bcrypt from "bcrypt";
+import mongoose from "mongoose";
 import config from "../config/key";
 
 export interface UserDocument extends mongoose.Document {
@@ -38,7 +38,7 @@ UserSchema.pre("save", async function (next) {
   if (!user.isModified("password")) return next();
 
   const salt = await bcrypt.genSalt(config.saltNum);
-  const hash = await bcrypt.hashSync(user.password, salt);
+  const hash = bcrypt.hashSync(user.password, salt);
 
   user.password = hash;
 
