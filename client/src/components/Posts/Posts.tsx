@@ -1,4 +1,4 @@
-import { Box, Grid } from "@material-ui/core";
+import { Box, CircularProgress, Grid } from "@material-ui/core";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ReduxReducer } from "src/redux/configureStore";
@@ -19,11 +19,17 @@ export const Posts: React.FC<PostsProps> = () => {
 
   return (
     <Box pt={4}>
-      <Grid container spacing={5}>
-        {postsData.posts.map((post: PostData) => (
-          <EachPost key={post.postId} post={post} />
-        ))}
-      </Grid>
+      {postsData.isLoading === true ? (
+        <Box display="flex" alignItems="center" justifyContent="center">
+          <CircularProgress />
+        </Box>
+      ) : (
+        <Grid container spacing={5}>
+          {postsData.posts.map((post: PostData) => (
+            <EachPost key={post.postId} post={post} />
+          ))}
+        </Grid>
+      )}
     </Box>
   );
 };

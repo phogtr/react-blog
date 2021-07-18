@@ -12,7 +12,7 @@ function* handleGetPosts() {
   try {
     const response: PostsArrayResponse = yield call(requestGetPosts);
     const { data } = response;
-    yield put(getPostSuccess(data));
+    yield put(getPostSuccess(data, false));
   } catch (error) {
     console.log(error);
   }

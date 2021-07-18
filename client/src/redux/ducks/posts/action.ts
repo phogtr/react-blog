@@ -11,9 +11,10 @@ export const getPost = () => ({
   type: GET_POST_REQUEST,
 });
 
-export const getPostSuccess = (posts: PostData[]) => ({
+export const getPostSuccess = (posts: PostData[], isLoading: Boolean) => ({
   type: GET_POST_SUCCESS,
   posts,
+  isLoading,
 });
 
 // export const createPostRequest = (newPost: PostData) => ({

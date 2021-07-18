@@ -14,24 +14,26 @@ export interface PostsArrayResponse {
 
 export interface PostDataState {
   posts: PostData[];
+  isLoading: Boolean;
 }
 
 export type Actions =
-  | { type: typeof GET_POST_SUCCESS; posts: PostData[] }
+  | { type: typeof GET_POST_SUCCESS; posts: PostData[]; isLoading: Boolean }
   // | { type: typeof CREATE_POST_REQUEST; newPost: PostData }
   | { type: typeof DELETE_POST_REQUEST; id: string }
   | { type: typeof DELETE_POST_SUCCESS; id: string };
 // | { type: typeof EDIT_POST_REQUEST; id: string; editPost: PostData };
 
-const initialState: PostDataState = { posts: [] };
+const initialState: PostDataState = { posts: [], isLoading: true };
 
 export const PostsReducer = (state = initialState, action: Actions) => {
   switch (action.type) {
     case GET_POST_SUCCESS:
-      const { posts } = action;
+      const { posts, isLoading } = action;
       return {
         ...state,
         posts: posts,
+        isLoading: isLoading,
       };
     case DELETE_POST_SUCCESS:
       const { id } = action;

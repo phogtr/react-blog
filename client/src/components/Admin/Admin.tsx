@@ -1,4 +1,4 @@
-import { Grid, Typography } from "@material-ui/core";
+import { Box, CircularProgress, Grid, Typography } from "@material-ui/core";
 import React, { useContext, useEffect, useState } from "react";
 import { getAllUsersRequest } from "src/api/user/userApi";
 import { UserContext } from "src/utils/UserContext";
@@ -15,12 +15,14 @@ export interface UserData {
 }
 
 export const Admin: React.FC<AdminProps> = () => {
+  const [usersLoaded, setUsersLoaded] = useState(false);
   const [userArr, setUserArr] = useState<UserData[]>([]);
   const { userData } = useContext(UserContext);
 
   useEffect(() => {
     getAllUsersRequest().then((data: UserData[]) => {
       setUserArr(data);
+      setUsersLoaded(true);
     });
   }, []);
 
@@ -36,11 +38,17 @@ export const Admin: React.FC<AdminProps> = () => {
 
   return (
     <>
-      <Grid container spacing={5}>
-        {userArr.map((user: UserData) => (
-          <EachUser key={user.userId} user={user} />
-        ))}
-      </Grid>
+      {usersLoaded === false ? (
+        <Box display="flex" alignItems="center" justifyContent="center">
+          <CircularProgress />
+        </Box>
+      ) : (
+        <Grid container spacing={5}>
+          {userArr.map((user: UserData) => (
+            <EachUser key={user.userId} user={user} />
+          ))}
+        </Grid>
+      )}
     </>
   );
 };
