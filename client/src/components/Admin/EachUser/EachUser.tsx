@@ -27,12 +27,14 @@ export const EachUser: React.FC<EachUserProps> = ({ user }) => {
   const handleDeleteConfirm = async () => {
     await deleteUserRequest(user.userId);
     setOpenDialogDelete(false);
+    history.push("/admin");
     history.go(0);
   };
 
   const handleUpdateConfirm = async () => {
     await updateUserRequest(user.userId);
     setOpenDialogUpdate(false);
+    history.push("/admin");
     history.go(0);
   };
 
