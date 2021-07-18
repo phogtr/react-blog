@@ -3,7 +3,6 @@ import React, { useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { deleteUserRequest, updateUserRequest } from "src/api/user/userApi";
 import { DialogConfirm } from "src/components";
-import { admin } from "src/config/admin";
 import { UserContext } from "src/utils/UserContext";
 import { UserData } from "../Admin";
 
@@ -44,7 +43,7 @@ export const EachUser: React.FC<EachUserProps> = ({ user }) => {
           <Typography variant="h5" component="h2" noWrap>
             Username: {user.name}
           </Typography>
-          {user.userId === admin.adminId ? (
+          {user.userId === process.env.ADMIN_ID ? (
             <></>
           ) : (
             <Typography variant="h6" component="h3" noWrap>
@@ -56,7 +55,7 @@ export const EachUser: React.FC<EachUserProps> = ({ user }) => {
           </Typography>
         </CardContent>
 
-        {user.userId === admin.adminId || userData.userId === user._id ? (
+        {user.userId === process.env.ADMIN_ID || userData.userId === user._id ? (
           <Box mb={2}></Box>
         ) : (
           <>
