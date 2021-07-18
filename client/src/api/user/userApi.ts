@@ -1,4 +1,5 @@
 import axios from "src/config/axios";
+import { url } from "src/config/url";
 
 export interface RegisterData {
   name: string;
@@ -12,27 +13,27 @@ export interface LoginData {
 }
 
 export const reqisterRequest = async (data: RegisterData) => {
-  return await axios.post("http://localhost:5000/api/createUser", data);
+  return await axios.post(url.url + "/api/createUser", data);
 };
 
 export const loginRequest = async (data: LoginData) => {
-  const res = await axios.post("http://localhost:5000/api/login", data);
+  const res = await axios.post(url.url + "/api/login", data);
   return await res.data;
 };
 
 export const logoutRequest = async () => {
-  await axios.delete("http://localhost:5000/api/logout");
+  await axios.delete(url.url + "/api/logout");
 };
 
 export const getAllUsersRequest = async () => {
-  const res = await axios.get("http://localhost:5000/api/admin/getUsers");
+  const res = await axios.get(url.url + "/api/admin/getUsers");
   return await res.data;
 };
 
 export const deleteUserRequest = async (id: string) => {
-  await axios.delete(`http://localhost:5000/api/admin/${id}`);
+  await axios.delete(url.url + `/api/admin/${id}`);
 };
 
 export const updateUserRequest = async (id: string) => {
-  await axios.put(`http://localhost:5000/api/admin/${id}`);
+  await axios.put(url.url + `/api/admin/${id}`);
 };

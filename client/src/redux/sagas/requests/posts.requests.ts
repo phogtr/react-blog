@@ -1,16 +1,17 @@
 import axios from "src/config/axios";
+import { url } from "src/config/url";
 
 export function requestGetPosts() {
   return axios.request({
     method: "GET",
-    url: "http://localhost:5000/api/getPosts",
+    url: url.url + "/api/getPosts",
   });
 }
 
 export function requestDeletePost(id: string) {
   return axios.request({
     method: "DELETE",
-    url: `http://localhost:5000/api/post/${id}`,
+    url: url.url + `/api/post/${id}`,
   });
 }
 
