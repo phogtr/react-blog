@@ -1,4 +1,12 @@
-import { Box, CircularProgress, IconButton, Typography } from "@material-ui/core";
+import {
+  Box,
+  CircularProgress,
+  createStyles,
+  IconButton,
+  makeStyles,
+  Theme,
+  Typography,
+} from "@material-ui/core";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
 import React, { useContext, useEffect, useState } from "react";
@@ -9,6 +17,22 @@ import { DialogConfirm } from "src/components";
 import { deletePostRequest } from "src/redux/ducks/posts/action";
 import { PostData } from "src/redux/ducks/posts/postsReducer";
 import { UserContext } from "src/utils/UserContext";
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    text_title: {
+      [theme.breakpoints.down("xs")]: {
+        "font-size": "1.5rem",
+      },
+    },
+    text_name: {
+      [theme.breakpoints.down("xs")]: {
+        "font-size": "1rem",
+        paddingTop: theme.spacing(2),
+      },
+    },
+  })
+);
 
 interface SinglePostProps {}
 
@@ -24,6 +48,7 @@ export const SinglePost: React.FC<SinglePostProps> = () => {
   const { userData } = useContext(UserContext);
   const dispatch = useDispatch();
   let history = useHistory();
+  const classes = useStyles();
 
   useEffect(() => {
     getSinglePost(params.id).then((data) => {
@@ -60,9 +85,13 @@ export const SinglePost: React.FC<SinglePostProps> = () => {
         </div>
       ) : (
         <>
-          <Typography variant="h3">{singlePost.title}</Typography>
+          <Typography variant="h3" className={classes.text_title}>
+            {singlePost.title}
+          </Typography>
           <Box mb={3.5}>
-            <Typography variant="h6">Posted by {singlePost.author}</Typography>
+            <Typography variant="h6" className={classes.text_name}>
+              Posted by {singlePost.author}
+            </Typography>
           </Box>
           <Typography variant="body1" component="p">
             {singlePost.content}
