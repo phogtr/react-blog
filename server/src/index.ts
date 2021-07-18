@@ -1,4 +1,5 @@
 import cors from "cors";
+import dotenv from "dotenv";
 import express from "express";
 import connect from "./db/connect";
 import log from "./logger";
@@ -6,6 +7,7 @@ import { deserializeUser } from "./middleware/";
 import { adminRoute, postRoute, userRoute } from "./routes/";
 
 const app = express();
+dotenv.config();
 
 app.use(cors());
 

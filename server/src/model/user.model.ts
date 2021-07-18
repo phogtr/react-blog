@@ -1,7 +1,6 @@
 import bcrypt from "bcrypt";
 import mongoose from "mongoose";
 import { nanoid } from "nanoid";
-import config from "../config/key";
 
 export interface UserDocument extends mongoose.Document {
   email: string;
@@ -45,8 +44,9 @@ UserSchema.pre("save", async function (next) {
 
   // if password has not been modified (already hash) then return next() to skip
   if (!user.isModified("password")) return next();
+  const saltNum = Number(process.env.SALT_NUM);
 
-  const salt = await bcrypt.genSalt(config.saltNum);
+  const salt = await bcrypt.genSalt(saltNum);
   const hash = bcrypt.hashSync(user.password, salt);
 
   user.password = hash;

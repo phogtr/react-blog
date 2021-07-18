@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import { get } from "lodash";
-import config from "../config/key";
 import Session from "../model/session.model";
 import User, { UserDocument } from "../model/user.model";
 import { jwtSign } from "../utils/jwt.utils";
@@ -34,11 +33,12 @@ export async function createSessionHandler(req: Request, res: Response) {
   // create a session
   const session = await Session.create({ user: userId, userAgent: req.get("user-agent") });
   const sessionJson = session.toJSON();
+  const accessTokenTime = String(process.env.ACCESS_TOKEN_TIME);
 
   // create access token
   const accessToken = jwtSign(
     { ...userJson, session: sessionJson._id },
-    { expiresIn: config.accessTokenTime }
+    { expiresIn: accessTokenTime }
   );
 
   // create refresh token

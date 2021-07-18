@@ -1,12 +1,11 @@
 import mongoose from "mongoose";
-import config from "../config/key";
 import log from "../logger";
 
 const connect = async () => {
-  const dbUri = config.dbURL;
+  const dbUrl = String(process.env.DB_URL);
 
   return mongoose
-    .connect(dbUri, {
+    .connect(dbUrl, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useFindAndModify: false,
