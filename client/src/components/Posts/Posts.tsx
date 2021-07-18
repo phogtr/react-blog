@@ -15,7 +15,7 @@ export const Posts: React.FC<PostsProps> = () => {
 
   useEffect(() => {
     dispatch(getPost());
-  }, []);
+  }, [dispatch]);
 
   return (
     <Box pt={4}>

@@ -55,7 +55,7 @@ export const SinglePost: React.FC<SinglePostProps> = () => {
       setSinglePost(data);
       setPostLoaded(true);
     });
-  }, []);
+  }, [params.id]);
 
   const handleDeleteCancel = () => {
     setOpenDialog(false);

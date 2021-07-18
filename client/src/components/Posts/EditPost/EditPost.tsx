@@ -29,7 +29,7 @@ export const EditPost: React.FC<EditPostProps> = () => {
       setPost(data);
       setPostLoaded(true);
     });
-  }, []);
+  }, [params.id]);
 
   const handleCloseDialog = () => {
     setOpenDialog(false);
