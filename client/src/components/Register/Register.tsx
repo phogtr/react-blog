@@ -34,7 +34,7 @@ export const Register: React.FC<RegisterProps> = () => {
           <Box pb={2}>
             <Typography variant="h4">Register</Typography>
           </Box>
-          <Form autoComplete="off">
+          <Form>
             <InputField name="name" label="Name" placeholder="Username" />
             <InputField name="email" label="Email" placeholder="Email" />
             <InputField

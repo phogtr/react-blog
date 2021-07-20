@@ -37,7 +37,7 @@ export const Login: React.FC<LoginProps> = () => {
           <Box pb={2}>
             <Typography variant="h4">Login</Typography>
           </Box>
-          <Form autoComplete="off">
+          <Form>
             <InputField name="email" label="Email" placeholder="Email" />
             <InputField
               name="password"

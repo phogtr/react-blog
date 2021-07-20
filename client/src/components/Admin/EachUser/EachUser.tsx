@@ -45,7 +45,7 @@ export const EachUser: React.FC<EachUserProps> = ({ user }) => {
           <Typography variant="h5" component="h2" noWrap>
             Username: {user.name}
           </Typography>
-          {user.userId === process.env.ADMIN_ID ? (
+          {user.userId === process.env.REACT_APP_ADMIN_ID ? (
             <></>
           ) : (
             <Typography variant="h6" component="h3" noWrap>
@@ -57,7 +57,7 @@ export const EachUser: React.FC<EachUserProps> = ({ user }) => {
           </Typography>
         </CardContent>
 
-        {user.userId === process.env.ADMIN_ID || userData.userId === user._id ? (
+        {user.userId === process.env.REACT_APP_ADMIN_ID || userData.userId === user._id ? (
           <Box mb={2}></Box>
         ) : (
           <>
