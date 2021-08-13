@@ -1,5 +1,4 @@
-import { render, screen } from "src/utils/test-utils";
-import { GuessNav } from "../Auth/GuessNav";
+import { render, screen, userLoginRender } from "src/utils/test-utils";
 import { UserNav } from "../Auth/UserNav";
 import { NavBar } from "../NavBar";
 
@@ -11,19 +10,19 @@ it("renders the logo", async () => {
 
 describe("Navbar links for the Guess", () => {
   it("should have 2 nav-links", async () => {
-    render(<GuessNav isMobile={false} logoutBtn={() => {}} />);
+    render(<NavBar />);
     const guessNavElements = screen.getAllByRole("button");
     expect(guessNavElements.length).toBe(2);
   });
 
   it("the first Guess's nav-links is Login", async () => {
-    render(<GuessNav isMobile={false} logoutBtn={() => {}} />);
+    render(<NavBar />);
     const firstNavLink = screen.getAllByRole("button");
     expect(firstNavLink[0]).toHaveTextContent(/Login/i);
   });
 
   it("the second Guess's nav-links is Regsiter", async () => {
-    render(<GuessNav isMobile={false} logoutBtn={() => {}} />);
+    render(<NavBar />);
     const secondNavLink = screen.getAllByRole("button");
     expect(secondNavLink[1]).toHaveTextContent(/Register/i);
   });
@@ -31,24 +30,24 @@ describe("Navbar links for the Guess", () => {
 
 describe("Navbar links for normal login User", () => {
   it("should have 3 nav-links", async () => {
-    render(<UserNav isMobile={false} username="Bob" isAdmin={false} logoutBtn={() => {}} />);
+    userLoginRender(<NavBar />);
     const UserNavElements = screen.getAllByRole("button");
     expect(UserNavElements.length).toBe(3);
   });
 
   it("the first User's nav-links is Create Post", async () => {
-    render(<UserNav isMobile={false} username="Bob" isAdmin={false} logoutBtn={() => {}} />);
+    userLoginRender(<NavBar />);
     const userFirstLink = screen.getAllByRole("button");
     expect(userFirstLink[0]).toHaveTextContent(/Create Post/i);
   });
 
   it("the second User's nav-links is the username", async () => {
-    render(<UserNav isMobile={false} username="Bob" isAdmin={false} logoutBtn={() => {}} />);
+    userLoginRender(<NavBar />);
     const userSecondLink = screen.getAllByRole("button");
-    expect(userSecondLink[1]).toHaveTextContent(/Bob/i);
+    expect(userSecondLink[1]).toHaveTextContent(/test/i);
   });
   it("the third User's nav-links is Logout", async () => {
-    render(<UserNav isMobile={false} username="Bob" isAdmin={false} logoutBtn={() => {}} />);
+    userLoginRender(<NavBar />);
     const userThirdLink = screen.getAllByRole("button");
     expect(userThirdLink[2]).toHaveTextContent(/Logout/i);
   });
