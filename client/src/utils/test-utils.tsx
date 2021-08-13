@@ -20,7 +20,28 @@ const AllTheProviders: FC = ({ children }) => {
   );
 };
 
+const contextUserLogin: FC = ({ children }) => {
+  const value = {
+    userData: {
+      accessToken: "user_token",
+      userId: "user_id",
+      userName: "test",
+      isAdmin: false,
+    },
+    setUser: () => {},
+  };
+  return (
+    <Provider store={store}>
+      <UserContext.Provider value={value}>
+        <Router>{children}</Router>
+      </UserContext.Provider>
+    </Provider>
+  );
+};
+
 const customRender = (ui: ReactElement) => render(ui, { wrapper: AllTheProviders });
+const userLoginRender = (ui: ReactElement) => render(ui, { wrapper: contextUserLogin });
 
 export * from "@testing-library/react";
 export { customRender as render };
+export { userLoginRender };
