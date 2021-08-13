@@ -52,7 +52,7 @@ export const EachPost: React.FC<EachPostProps> = ({ post }) => {
   };
 
   return (
-    <Grid item xs={12}>
+    <Grid component="article" item xs={12}>
       <Card elevation={3}>
         <Grid container>
           <Grid item md={10} sm={9} xs={8}>

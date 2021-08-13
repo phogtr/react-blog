@@ -24,7 +24,7 @@ export const Posts: React.FC<PostsProps> = () => {
           <CircularProgress />
         </Box>
       ) : (
-        <Grid container spacing={5}>
+        <Grid component="section" container spacing={5}>
           {postsData.posts.map((post: PostData) => (
             <EachPost key={post.postId} post={post} />
           ))}
